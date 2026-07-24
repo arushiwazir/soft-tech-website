@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soft Tech — Enterprise IT, Cloud & Consumer Tech Distribution</title>
+    <meta name="description" content="Soft Tech Distribution is a leading IT, Consumer Electronics & Enterprise Solution distributor connecting global technology vendors with regional channel partners.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Three.js for 3D Product & Consumer IT Visualization -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navigation Header (Optimized Top Bar) -->
+    <header class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <span class="logo-icon"><i class="fa-solid fa-network-wired"></i></span>
+                <span class="logo-text">Soft <span>Tech</span></span>
+                <span class="logo-badge">Distribution</span>
+            </a>
+
+            <nav class="nav-menu" id="navMenu">
+                <a href="#about" class="nav-link" data-i18n="nav_about">Who We Are</a>
+                <a href="#services" class="nav-link" data-i18n="nav_services">Verticals</a>
+                <a href="#3d-space" class="nav-link" data-i18n="nav_3d">3D IT Studio</a>
+                <a href="#how-it-works" class="nav-link" data-i18n="nav_process">Supply Chain</a>
+                <a href="#calculator" class="nav-link highlight" data-i18n="nav_estimator">Partner Estimator</a>
+            </nav>
+
+            <div class="nav-actions">
+                <!-- Language Selector Dropdown -->
+                <div class="lang-selector" title="Select Language">
+                    <i class="fa-solid fa-globe"></i>
+                    <select id="langSelect" class="lang-dropdown">
+                        <option value="en">EN</option>
+                        <option value="es">ES</option>
+                        <option value="fr">FR</option>
+                        <option value="sw">SW</option>
+                    </select>
+                </div>
+
+                <!-- Dark / Light Theme Toggle -->
+                <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+
+                <button class="btn btn-primary btn-nav" id="btnContactNav" data-i18n="nav_contact">
+                    Become a Partner <i class="fa-solid fa-arrow-right"></i>
+                </button>
+                
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+        <div class="container">
+            <!-- Top Hero Row -->
+            <div class="hero-top-grid">
+                <div class="hero-text-col">
+                    <div class="eyebrow-tag">
+                        <span class="dash"></span> <span data-i18n="hero_eyebrow">Pan-Regional Technology Distribution Powerhouse</span>
+                    </div>
+                    <h1 class="hero-title" data-i18n="hero_title">
+                        Connecting Global Tech Giants with <br>
+                        <span class="highlight-text">Regional Supply Chain Perfection</span>
+                    </h1>
+                    
+                    <!-- Distribution Category Pills Row -->
+                    <div class="hero-pills-row">
+                        <span class="tag-pill" data-i18n="pill_ai">Consumer IT Goods</span>
+                        <span class="tag-pill" data-i18n="pill_ui">Laptops & Workstations</span>
+                        <span class="tag-pill" data-i18n="pill_organic">Foldable Tablets</span>
+                        <span class="tag-pill" data-i18n="pill_eco">Smart Accessories</span>
+                        <span class="tag-pill" data-i18n="pill_deploy">Retail Channel Logistics</span>
+                    </div>
+                </div>
+
+                <div class="hero-right-col">
+                    <!-- Rotating Circular Badge -->
+                    <div class="circular-badge-wrapper" id="contactBadge">
+                        <div class="circular-badge">
+                            <svg viewBox="0 0 100 100" width="120" height="120">
+                                <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none"/>
+                                <text>
+                                    <textPath href="#circlePath">BECOME A PARTNER • SOFT TECH • DISTRIBUTE • </textPath>
+                                </text>
+                            </svg>
+                            <div class="center-arrow">
+                                <i class="fa-solid fa-arrow-up-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="hero-description" data-i18n="hero_desc">
+                        Soft Tech Distribution connects world-class consumer IT manufacturers and mobility brands with over 12,000 active channel partners, retail chains, and system integrators.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Hero Banner Container -->
+            <div class="hero-banner-grid">
+                <div class="hero-image-wrapper">
+                    <img src="assets/images/hero.jpg" alt="Soft Tech Consumer IT Logistics & Electronics" class="hero-img">
+                    <div class="image-overlay-gradient"></div>
+                    
+                    <button class="play-btn" id="btnPlayDemo" title="Watch Soft Tech Consumer IT Distribution Demo">
+                        <i class="fa-solid fa-play"></i>
+                        <span class="play-pulse"></span>
+                    </button>
+
+                    <div class="hero-img-badge">
+                        <i class="fa-solid fa-boxes-packing"></i>
+                        <span data-i18n="hero_badge">Authorized Global OEM Distribution Partner</span>
+                    </div>
+                </div>
+
+                <div class="hero-stats-card">
+                    <div class="stat-box">
+                        <h2 class="stat-number" data-target="28">0<span class="plus">+</span></h2>
+                        <p class="stat-label" data-i18n="stat_projects">Countries Covered</p>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-box">
+                        <h2 class="stat-number" data-target="12000">0<span class="plus">+</span></h2>
+                        <p class="stat-label" data-i18n="stat_years">Channel Partners & Resellers</p>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-box">
+                        <h2 class="stat-number" data-target="500">0<span class="plus">+</span></h2>
+                        <p class="stat-label" data-i18n="stat_clients">Global Tech Brands</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-bottom-curve">
+            <svg viewBox="0 0 1440 120" fill="none" preserveAspectRatio="none">
+                <path d="M0,0 C320,90 420,40 720,70 C1020,100 1200,20 1440,50 L1440,120 L0,120 Z" fill="var(--color-beige)"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- "Who We Are" Section -->
+    <section class="section who-we-are-section" id="about">
+        <div class="container">
+            <div class="about-header-grid">
+                <div class="about-title-col">
+                    <div class="eyebrow-tag">
+                        <span class="dash"></span> <span data-i18n="about_eyebrow">Who We Are</span>
+                    </div>
+                    <h2 class="section-title" data-i18n="about_title">
+                        Building the Technology Highway <br>
+                        across Regional Markets
+                    </h2>
+                </div>
+                
+                <div class="about-text-col">
+                    <p class="section-paragraph" data-i18n="about_desc">
+                        Inspired by global distribution excellence, Soft Tech Distribution serves as the premier bridge between international consumer technology OEMs and regional retail & commercial markets. We supply laptops, mobility devices, desktops, and accessories with express logistics and credit support.
+                    </p>
+                    <div class="about-action">
+                        <a href="#calculator" class="btn btn-rosy">
+                            <span data-i18n="about_btn">Explore Distribution Network</span>
+                            <span class="btn-circle-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hanging-tech-node" id="hangingNode">
+                    <div class="node-line"></div>
+                    <div class="node-badge" title="Active Distribution Hub">
+                        <i class="fa-solid fa-laptop"></i>
+                        <span>Consumer IT Hub v5.0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-cards-grid">
+                <div class="about-image-card">
+                    <img src="assets/images/who_we_are.jpg" alt="Soft Tech Consumer Electronics Consultation" class="about-img">
+                    <div class="experience-badge">
+                        <span class="badge-num">28+</span>
+                        <span class="badge-text" data-i18n="badge_exp">Active Markets</span>
+                    </div>
+                </div>
+
+                <div class="about-mission-card">
+                    <div class="mission-header">
+                        <span class="mission-tag" data-i18n="mission_tag">Distribution Pillar</span>
+                        <div class="carousel-nav">
+                            <button class="nav-arrow" id="btnPrevMission" aria-label="Previous Mission Slide"><i class="fa-solid fa-arrow-left"></i></button>
+                            <button class="nav-arrow active" id="btnNextMission" aria-label="Next Mission Slide"><i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                    <div class="mission-content" id="missionContent">
+                        <h3 class="mission-title" id="missionTitle" data-i18n="mission_title">Our Mission</h3>
+                        <p class="mission-desc" id="missionDesc" data-i18n="mission_desc">
+                            To streamline technology distribution across emerging markets, bringing world-class laptops, smart mobility devices, and personal computing hardware to retail networks with speed and efficiency.
+                        </p>
+                    </div>
+                    <div class="mission-footer">
+                        <div class="slide-dots">
+                            <span class="dot active" data-index="0"></span>
+                            <span class="dot" data-index="1"></span>
+                            <span class="dot" data-index="2"></span>
+                        </div>
+                        <button class="btn-text-link" id="btnOpenMissionModal">
+                            <span data-i18n="btn_manifesto">Read Partner Charter</span> <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONSUMER IT GOODS 3D VISUALIZATION STUDIO -->
+    <section class="section product-3d-section" id="3d-space">
+        <div class="container">
+            <div class="section-center-header">
+                <div class="eyebrow-tag centered">
+                    <span class="dash"></span> <span data-i18n="3d_eyebrow">Consumer IT & Electronics 3D Studio</span>
+                </div>
+                <h2 class="section-title">
+                    Consumer IT Goods <span class="rosy-text" data-i18n="3d_title_highlight">3D Visualizer</span>
+                </h2>
+                <p class="section-paragraph" data-i18n="3d_subtitle">
+                    Interact directly with 3D models of premium consumer electronics, ultra-slim laptops, foldable tablets, and smart audio devices distributed to retailers across regional markets.
+                </p>
+            </div>
+
+            <div class="visualizer-container">
+                <div class="visualizer-toolbar">
+                    <div class="model-select-group">
+                        <label><i class="fa-solid fa-laptop"></i> <span data-i18n="3d_model_label">Select Consumer Product:</span></label>
+                        <select id="modelSelector" class="form-input toolbar-select">
+                            <option value="laptop">Ultra-Slim Executive Laptop (Book Pro 16")</option>
+                            <option value="tablet">Flex Tab Ultra (Foldable 5G Tablet)</option>
+                            <option value="headset">Audio Pro Haptic Wireless Headset</option>
+                        </select>
+                    </div>
+
+                    <div class="toolbar-actions">
+                        <button class="tool-btn active" id="btnRotate3D" title="Toggle Auto-Rotation">
+                            <i class="fa-solid fa-rotate"></i> <span data-i18n="3d_tool_rotate">Auto-Rotate</span>
+                        </button>
+                        <button class="tool-btn" id="btnWireframe3D" title="Toggle Wireframe Mode">
+                            <i class="fa-solid fa-border-none"></i> <span data-i18n="3d_tool_wireframe">Wireframe</span>
+                        </button>
+                        <button class="tool-btn" id="btnResetCamera3D" title="Reset Camera View">
+                            <i class="fa-solid fa-arrows-to-dot"></i> <span data-i18n="3d_tool_reset">Reset View</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="canvas-wrapper">
+                    <div id="threeCanvasContainer" class="three-container"></div>
+                    
+                    <div class="hotspot-card" id="hotspotCard">
+                        <div class="hotspot-header">
+                            <i class="fa-solid fa-laptop"></i>
+                            <span id="hotspotTitle">16" Organic OLED 120Hz Display</span>
+                        </div>
+                        <p id="hotspotDesc">Ultra-thin aluminium unibody laptop with anti-glare display and glass trackpad for commercial deployment.</p>
+                    </div>
+
+                    <div class="canvas-instruction">
+                        <i class="fa-solid fa-hand-pointer"></i> <span data-i18n="3d_hint">Drag to Rotate • Scroll to Zoom • Right-click to Pan</span>
+                    </div>
+                </div>
+
+                <div class="visualizer-specs-grid">
+                    <div class="spec-card">
+                        <i class="fa-solid fa-microchip"></i>
+                        <div>
+                            <span class="spec-val" id="specChip">M-Series Octa-Core</span>
+                            <span class="spec-lbl" data-i18n="3d_spec_proc">Processor / Display</span>
+                        </div>
+                    </div>
+                    <div class="spec-card">
+                        <i class="fa-solid fa-battery-full"></i>
+                        <div>
+                            <span class="spec-val" id="specPower">18 Hours</span>
+                            <span class="spec-lbl" data-i18n="3d_spec_power">Battery Life</span>
+                        </div>
+                    </div>
+                    <div class="spec-card">
+                        <i class="fa-solid fa-weight-hanging"></i>
+                        <div>
+                            <span class="spec-val" id="specCarbon">1.25 kg</span>
+                            <span class="spec-lbl" data-i18n="3d_spec_footprint">Chassis Weight</span>
+                        </div>
+                    </div>
+                    <div class="spec-card">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <div>
+                            <span class="spec-val" id="specRating">Retail OEM Grade</span>
+                            <span class="spec-lbl" data-i18n="3d_spec_rating">Distribution Grade</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- "Our Verticals" Section -->
+    <section class="section services-section" id="services">
+        <div class="container">
+            <div class="section-center-header">
+                <div class="eyebrow-tag centered">
+                    <span class="dash"></span> <span data-i18n="services_eyebrow">Distribution Verticals</span>
+                </div>
+                <h2 class="section-title" data-i18n="services_title">
+                    Comprehensive IT & <br>
+                    <span class="rosy-text">Consumer Tech Portfolio</span>
+                </h2>
+            </div>
+
+            <div class="services-grid">
+                <!-- Card 1 -->
+                <div class="service-card" data-service="ai-cloud">
+                    <div class="service-img-wrapper">
+                        <img src="assets/images/service_ui.jpg" alt="Consumer IT & Personal Computing Hardware">
+                        <div class="service-icon-badge">
+                            <i class="fa-solid fa-laptop"></i>
+                        </div>
+                    </div>
+                    <div class="service-card-body">
+                        <h3 class="service-card-title" data-i18n="srv_ui_title">Consumer IT & Laptops</h3>
+                        <p class="service-card-text" data-i18n="srv_ui_desc">
+                            Bulk distribution of commercial laptops, desktops, gaming hardware, smart mobility devices, and accessories from global top-tier OEM vendors.
+                        </p>
+                        <a href="javascript:void(0)" class="service-link" onclick="openServiceModal('ui-ux')">
+                            <span data-i18n="btn_learn_more">Learn more</span> <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="service-card" data-service="ui-ux">
+                    <div class="service-img-wrapper">
+                        <img src="assets/images/service_ai.jpg" alt="Enterprise Solutions & Cloud Distribution">
+                        <div class="service-icon-badge">
+                            <i class="fa-solid fa-server"></i>
+                        </div>
+                    </div>
+                    <div class="service-card-body">
+                        <h3 class="service-card-title" data-i18n="srv_ai_title">Enterprise Infrastructure & Cloud</h3>
+                        <p class="service-card-text" data-i18n="srv_ai_desc">
+                            Authorized distribution of data center servers, enterprise storage arrays, networking hardware, and cloud software licensing for channel partners.
+                        </p>
+                        <a href="javascript:void(0)" class="service-link" onclick="openServiceModal('ai-cloud')">
+                            <span data-i18n="btn_learn_more">Learn more</span> <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="service-card" data-service="eco-tech">
+                    <div class="service-img-wrapper">
+                        <img src="assets/images/service_eco.jpg" alt="Supply Chain & Channel Logistics">
+                        <div class="service-icon-badge">
+                            <i class="fa-solid fa-dolly"></i>
+                        </div>
+                    </div>
+                    <div class="service-card-body">
+                        <h3 class="service-card-title" data-i18n="srv_eco_title">Supply Chain & Channel Support</h3>
+                        <p class="service-card-text" data-i18n="srv_eco_desc">
+                            Seamless regional warehousing, bonded freight fulfillment, RMA technical support, and flexible credit facilities for 12,000+ active resellers.
+                        </p>
+                        <a href="javascript:void(0)" class="service-link" onclick="openServiceModal('eco-tech')">
+                            <span data-i18n="btn_learn_more">Learn more</span> <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="services-bottom-action">
+                <button class="btn btn-rosy" id="btnViewAllServices">
+                    <span data-i18n="btn_all_services">View All Consumer IT Products</span>
+                    <span class="btn-circle-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- "How We Distribute" Supply Chain Process Section -->
+    <section class="section process-section" id="how-it-works">
+        <div class="container">
+            <div class="process-header-grid">
+                <div>
+                    <div class="eyebrow-tag">
+                        <span class="dash"></span> <span data-i18n="proc_eyebrow">Supply Chain Architecture</span>
+                    </div>
+                    <h2 class="section-title" data-i18n="proc_title">
+                        How We Distribute Technology
+                    </h2>
+                </div>
+                <div>
+                    <button class="btn btn-rosy" id="btnStartProjectProcess">
+                        <span data-i18n="proc_btn">Become an Authorized Partner</span>
+                        <span class="btn-circle-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="process-steps-grid">
+                <div class="process-step-card">
+                    <div class="step-number">01</div>
+                    <h3 class="step-title" data-i18n="step1_title">Global Vendor Onboarding</h3>
+                    <p class="step-desc" data-i18n="step1_desc">Partnering directly with leading international consumer IT, laptop, and mobility OEMs.</p>
+                </div>
+                <div class="process-step-card">
+                    <div class="step-number">02</div>
+                    <h3 class="step-title" data-i18n="step2_title">Regional Hub Logistics</h3>
+                    <p class="step-desc" data-i18n="step2_desc">Routing inventory through strategically positioned regional warehouses and free-zone hubs.</p>
+                </div>
+                <div class="process-step-card">
+                    <div class="step-number">03</div>
+                    <h3 class="step-title" data-i18n="step3_title">Channel Partner Enablement</h3>
+                    <p class="step-desc" data-i18n="step3_desc">Providing 12,000+ resellers with credit lines, stock portals, and technical training.</p>
+                </div>
+                <div class="process-step-card">
+                    <div class="step-number">04</div>
+                    <h3 class="step-title" data-i18n="step4_title">Last-Mile Execution</h3>
+                    <p class="step-desc" data-i18n="step4_desc">Fulfilling orders rapidly with full warranty, RMA support, and localized customer service.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Partner Estimator Section -->
+    <section class="section calculator-section" id="calculator">
+        <div class="container">
+            <div class="calc-card-container">
+                <div class="calc-grid">
+                    <div class="calc-info-col">
+                        <div class="eyebrow-tag light">
+                            <span class="dash"></span> <span data-i18n="calc_eyebrow">Distribution Estimator</span>
+                        </div>
+                        <h2 class="calc-title" data-i18n="calc_title">Estimate Your Distribution Order</h2>
+                        <p class="calc-desc" data-i18n="calc_desc">Calculate estimated order volume, credit requirements, and express fulfillment timelines for your retail channel business.</p>
+
+                        <div class="impact-metrics-box">
+                            <div class="impact-item">
+                                <i class="fa-solid fa-truck-ramp-box"></i>
+                                <div>
+                                    <h4 data-i18n="calc_metric1_h">Express Logistics</h4>
+                                    <p data-i18n="calc_metric1_p">24 to 48-Hour regional hub fulfillment</p>
+                                </div>
+                            </div>
+                            <div class="impact-item">
+                                <i class="fa-solid fa-credit-card"></i>
+                                <div>
+                                    <h4 data-i18n="calc_metric2_h">Channel Credit Support</h4>
+                                    <p data-i18n="calc_metric2_p">Flexible 30/60-day credit lines for resellers</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="calc-form-col">
+                        <form id="interactiveCalcForm" class="calc-form">
+                            <div class="form-group">
+                                <label data-i18n="calc_scope_lbl">Distribution Order Tier</label>
+                                <select id="calcScope" class="form-input">
+                                    <option value="35000">Commercial Laptop & Computing Batch ($35k+)</option>
+                                    <option value="20000">Smart Mobility & Tablet Stock ($20k+)</option>
+                                    <option value="10000">Peripherals & Accessories Fleet ($10k+)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label data-i18n="calc_modules_lbl">Logistics & Support Add-ons</label>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-pill">
+                                        <input type="checkbox" value="5000" checked class="calc-module">
+                                        <span>Priority Air Freight (+ $5k)</span>
+                                    </label>
+                                    <label class="checkbox-pill">
+                                        <input type="checkbox" value="3000" checked class="calc-module">
+                                        <span>Full OEM RMA Warranty (+ $3k)</span>
+                                    </label>
+                                    <label class="checkbox-pill">
+                                        <input type="checkbox" value="2000" class="calc-module">
+                                        <span>Stock API Portal Sync (+ $2k)</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="calc-result-box">
+                                <div>
+                                    <span class="result-label" data-i18n="calc_res_price">Estimated Order Value:</span>
+                                    <h3 class="result-price" id="calcTotalPrice">$43,000</h3>
+                                </div>
+                                <div>
+                                    <span class="result-label" data-i18n="calc_res_time">Delivery Window:</span>
+                                    <h4 class="result-time" id="calcEstTime">2 - 4 Days</h4>
+                                </div>
+                            </div>
+
+                            <button type="button" class="btn btn-rosy btn-full" id="btnRequestCalcQuote">
+                                <span data-i18n="calc_btn_proposal">Apply for Credit & Account</span>
+                                <span class="btn-circle-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo footer-logo">
+                        <span class="logo-icon"><i class="fa-solid fa-network-wired"></i></span>
+                        <span class="logo-text">Soft <span>Tech</span></span>
+                    </a>
+                    <p class="footer-tagline" data-i18n="footer_tagline">
+                        Pan-regional distributor connecting global consumer technology manufacturers with channel partners across Africa & MEA.
+                    </p>
+                </div>
+
+                <div class="footer-links">
+                    <h4 data-i18n="footer_nav">Navigation</h4>
+                    <ul>
+                        <li><a href="#about" data-i18n="nav_about">Who We Are</a></li>
+                        <li><a href="#services" data-i18n="nav_services">Distribution Verticals</a></li>
+                        <li><a href="#3d-space" data-i18n="nav_3d">3D Consumer IT Hub</a></li>
+                        <li><a href="#how-it-works" data-i18n="nav_process">Supply Chain</a></li>
+                        <li><a href="#calculator" data-i18n="nav_estimator">Partner Estimator</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4 data-i18n="footer_services">Distribution Verticals</h4>
+                    <ul>
+                        <li><a href="javascript:void(0)" onclick="openServiceModal('ui-ux')" data-i18n="srv_ui_title">Consumer Computing</a></li>
+                        <li><a href="javascript:void(0)" onclick="openServiceModal('ai-cloud')" data-i18n="srv_ai_title">Enterprise Infrastructure</a></li>
+                        <li><a href="javascript:void(0)" onclick="openServiceModal('eco-tech')" data-i18n="srv_eco_title">Channel Logistics</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-newsletter">
+                    <h4 data-i18n="footer_stay">Partner Portal</h4>
+                    <p data-i18n="footer_newsletter_sub">Subscribe for price lists, laptop stock updates, and retail news.</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Enter your business email" id="newsletterEmail">
+                        <button type="button" id="btnSubscribe"><i class="fa-solid fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p data-i18n="footer_rights">&copy; 2026 Soft Tech Distribution. All rights reserved. Inspired by Mitsumi Distribution model.</p>
+                <div class="footer-socials">
+                    <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Video / Live Platform Demo Modal -->
+    <div class="modal-overlay" id="demoModal">
+        <div class="modal-container demo-modal-box">
+            <button class="modal-close" id="btnCloseDemo"><i class="fa-solid fa-xmark"></i></button>
+            <div class="demo-header">
+                <span class="badge-pill">Soft Tech Consumer IT Dashboard</span>
+                <h2>Real-Time Laptop & Electronics Fulfillment</h2>
+            </div>
+            <div class="demo-screen">
+                <div class="demo-preview-card">
+                    <div class="demo-node-active">
+                        <i class="fa-solid fa-circle-notch fa-spin"></i> Active Retail Shipments: 2,850 Pallets in Transit
+                    </div>
+                    <div class="demo-bars-chart">
+                        <div class="chart-bar active" style="height: 95%;" title="Commercial Laptops"><span>95%</span></div>
+                        <div class="chart-bar" style="height: 80%;" title="Foldable Tablets"><span>80%</span></div>
+                        <div class="chart-bar" style="height: 65%;" title="Gaming Monitors"><span>65%</span></div>
+                        <div class="chart-bar" style="height: 90%;" title="Smart Accessories"><span>90%</span></div>
+                    </div>
+                    <div class="demo-status">
+                        <span class="status-indicator"></span> Consumer Distribution Network Operational • 28 Country Hubs Active
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Service Detail Modal -->
+    <div class="modal-overlay" id="serviceModal">
+        <div class="modal-container">
+            <button class="modal-close" id="btnCloseService"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-content" id="serviceModalContent">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact & Partner Onboarding Modal -->
+    <div class="modal-overlay" id="contactModal">
+        <div class="modal-container">
+            <button class="modal-close" id="btnCloseContact"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-content">
+                <div class="eyebrow-tag"><span class="dash"></span> Partner Registration</div>
+                <h2 style="font-family: var(--font-heading); font-size: 2rem; color: var(--color-dark-green); margin-bottom: 1rem;">Become a Consumer IT Reseller</h2>
+                <form id="modalContactForm">
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label style="display:block; margin-bottom: 0.5rem; font-weight:600;">Company / Business Name</label>
+                        <input type="text" class="form-input" required placeholder="Apex Electronics Retail">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label style="display:block; margin-bottom: 0.5rem; font-weight:600;">Business Email</label>
+                        <input type="email" class="form-input" required placeholder="procurement@apex.com">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label style="display:block; margin-bottom: 0.5rem; font-weight:600;">Country / Region</label>
+                        <input type="text" class="form-input" required placeholder="Kenya / UAE / Nigeria / Ghana">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label style="display:block; margin-bottom: 0.5rem; font-weight:600;">Product Lines Interested In</label>
+                        <textarea class="form-input" rows="3" required placeholder="Laptops, Foldable Tablets, Gaming Accessories, Smart Monitors..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-rosy btn-full">
+                        <span>Submit Reseller Application</span>
+                        <span class="btn-circle-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </content>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="main.js"></script>
+</body>
+</html>
