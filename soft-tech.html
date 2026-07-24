@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soft Tech — Technology that breathes with you</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..600,60&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #EDEEF5;
+    --surface: #FFFFFF;
+    --ink: #2B2A33;
+    --muted: #6E6C7A;
+    --sage: #8CA891;
+    --sage-deep: #6C8B72;
+    --blush: #E7B6B0;
+    --mist: #AEC3D6;
+    --line: rgba(43,42,51,0.10);
+    --grid-line: rgba(43,42,51,0.06);
+    --radius: 28px;
+    --mono: 'IBM Plex Mono', monospace;
+    --accent: #5B9AA0;
+    --accent-glow: rgba(91,154,160,0.28);
+    --code-bg: #1C1D27;
+    --code-ink: #C9E9E4;
+    --shadow-soft: rgba(43,42,51,0.12);
+    --shadow-strong: rgba(43,42,51,0.20);
+    --gradient-brand: linear-gradient(120deg, var(--sage), var(--mist) 55%, var(--blush));
+  }
+
+  html[data-theme="dark"]{
+    --bg: #04050C;
+    --surface: #0D111F;
+    --ink: #FFFFFF;
+    --muted: #D3D4E8;
+    --sage: #97E1A3;
+    --sage-deep: #74F2B0;
+    --blush: #F3C2BD;
+    --mist: #ACD1F2;
+    --line: rgba(211,216,255,0.20);
+    --grid-line: rgba(211,216,255,0.06);
+    --accent: #7CF3E4;
+    --accent-glow: rgba(124,243,228,0.24);
+    --code-bg: #050710;
+    --code-ink: #BAFCEC;
+    --shadow-soft: rgba(0,0,0,0.35);
+    --shadow-strong: rgba(0,0,0,0.5);
+  }
+  html[data-theme="dark"] p,
+  html[data-theme="dark"] .principle p,
+  html[data-theme="dark"] .system-step p,
+  html[data-theme="dark"] .product-card p,
+  html[data-theme="dark"] .section-head p,
+  html[data-theme="dark"] .hero p{ font-weight:500; }
+  html[data-theme="dark"] body{
+    background:
+      radial-gradient(circle at 1.5px 1.5px, var(--grid-line) 1.5px, transparent 0) 0 0/28px 28px,
+      radial-gradient(circle at 15% 0%, rgba(110,240,224,0.05), transparent 55%),
+      radial-gradient(circle at 85% 30%, rgba(143,218,156,0.045), transparent 55%),
+      var(--bg);
+  }
+  html[data-theme="dark"] .principle:hover{ background: color-mix(in srgb, var(--surface) 80%, var(--accent) 20%); }
+  html[data-theme="dark"] .hero-meta .num,
+  html[data-theme="dark"] .system-step h3,
+  html[data-theme="dark"] .product-card h3,
+  html[data-theme="dark"] .principle h3{ color: #FFFFFF; }
+
+  *{margin:0; padding:0; box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:
+      radial-gradient(circle at 1.5px 1.5px, var(--grid-line) 1.5px, transparent 0) 0 0/28px 28px,
+      var(--bg);
+    color: var(--ink);
+    font-family: 'Manrope', sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    transition: background-color 0.35s ease, color 0.35s ease;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  a{color:inherit;}
+  h1,h2,h3{ font-family:'Fraunces', serif; font-weight:500; letter-spacing:-0.01em; }
+  .mono{ font-family: var(--mono); }
+
+  .wrap{ max-width:1120px; margin:0 auto; padding:0 32px; }
+
+  /* ---------- Logo ---------- */
+  .logo{ font-family:'Fraunces', serif; font-size:1.2rem; font-weight:500; display:flex; align-items:center; gap:9px; text-decoration:none; color:var(--ink); }
+  .logo-mark{ width:14px; height:14px; border-radius:4px; background: conic-gradient(from 120deg, var(--sage), var(--mist), var(--blush), var(--sage)); flex-shrink:0; }
+
+  /* ---------- Top navigation ---------- */
+  .topbar-left{ display:flex; align-items:center; gap:28px; min-width:0; }
+  .topnav{ display:flex; align-items:center; gap:0; }
+  .topnav a{
+    display:flex; align-items:center; padding:9px 11px; border-radius:10px;
+    color:var(--muted); text-decoration:none; font-weight:600; font-size:0.85rem; white-space:nowrap;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  .topnav a:hover, .topnav a.active{ background: var(--accent-glow); color: var(--ink); }
+
+  .nav-dropdown{ position:relative; }
+  .nav-dropdown-toggle{
+    display:flex; align-items:center; gap:4px; padding:9px 11px; border-radius:10px;
+    color:var(--muted); background:none; border:none; font-family:'Manrope',sans-serif;
+    font-weight:600; font-size:0.85rem; cursor:pointer; white-space:nowrap;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  .nav-dropdown-toggle::after{ content:'▾'; font-size:0.6rem; margin-left:1px; transition:transform 0.2s ease; }
+  .nav-dropdown-toggle:hover, .nav-dropdown-toggle.active{ background: var(--accent-glow); color: var(--ink); }
+  .nav-dropdown.open .nav-dropdown-toggle::after{ transform:rotate(180deg); }
+  .nav-dropdown-menu{
+    display:none; position:absolute; top:calc(100% + 8px); left:0; min-width:180px;
+    background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:6px;
+    box-shadow:0 20px 44px var(--shadow-strong); z-index:70;
+  }
+  .nav-dropdown.open .nav-dropdown-menu{ display:flex; flex-direction:column; gap:2px; }
+  .nav-dropdown-menu a{ padding:9px 12px; border-radius:9px; font-size:0.85rem; }
+
+  .topbar-controls{ display:flex; align-items:center; gap:8px; flex-shrink:0; }
+
+  .mobile-menu-toggle{
+    display:none; align-items:center; justify-content:center;
+    width:38px; height:38px; border-radius:10px; border:1px solid var(--line);
+    background:var(--surface); cursor:pointer; flex-shrink:0;
+  }
+  .mobile-menu-toggle svg{ width:18px; height:18px; }
+
+  .mobile-nav{ display:none; flex-direction:column; padding:8px 32px 18px; gap:2px; border-top:1px solid var(--line); }
+  .mobile-nav.open{ display:flex; }
+  .mobile-nav a{
+    padding:12px 14px; border-radius:10px; color:var(--muted); text-decoration:none;
+    font-weight:600; font-size:0.92rem; transition: background 0.25s ease, color 0.25s ease;
+  }
+  .mobile-nav a:hover, .mobile-nav a.active{ background: var(--accent-glow); color: var(--ink); }
+
+  .mobile-nav-group{ display:flex; flex-direction:column; }
+  .mobile-nav-toggle{
+    display:flex; align-items:center; justify-content:space-between; width:100%;
+    padding:12px 14px; border-radius:10px; background:none; border:none; text-align:left;
+    color:var(--muted); font-weight:600; font-size:0.92rem; cursor:pointer; font-family:'Manrope',sans-serif;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  .mobile-nav-toggle::after{ content:'▾'; font-size:0.68rem; transition:transform 0.2s ease; }
+  .mobile-nav-toggle:hover, .mobile-nav-toggle.active{ background: var(--accent-glow); color: var(--ink); }
+  .mobile-nav-group.open .mobile-nav-toggle::after{ transform:rotate(180deg); }
+  .mobile-nav-submenu{ display:none; flex-direction:column; padding-left:14px; }
+  .mobile-nav-group.open .mobile-nav-submenu{ display:flex; }
+  .mobile-nav-submenu a{ padding:10px 14px; font-size:0.88rem; }
+
+  .theme-toggle{
+    display:flex; align-items:center; gap:6px; background:var(--bg); border:1px solid var(--line);
+    border-radius:999px; padding:4px; cursor:pointer; width:100%;
+  }
+  .theme-toggle button{
+    flex:1; display:flex; align-items:center; justify-content:center; gap:6px;
+    border:none; background:transparent; padding:8px 6px; border-radius:999px; cursor:pointer;
+    font-family:'Manrope',sans-serif; font-size:0.78rem; font-weight:600; color:var(--muted);
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  .theme-toggle button svg{ width:14px; height:14px; }
+  .theme-toggle button.is-active{ background:var(--surface); color:var(--ink); box-shadow:0 2px 8px var(--shadow-soft); }
+
+  .lang-select{
+    width:100%; padding:10px 12px; border-radius:12px; border:1px solid var(--line);
+    background:var(--bg); color:var(--ink); font-family:'Manrope',sans-serif; font-size:0.85rem;
+    font-weight:600; cursor:pointer; outline:none;
+  }
+  .lang-select:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+
+  .theme-toggle-mini{ width:auto; padding:3px; }
+  .theme-toggle-mini button{ padding:7px 10px; }
+  .lang-select-mini{ width:auto; padding:8px 10px; font-size:0.8rem; }
+
+  /* ---------- Content shell ---------- */
+  .content{ transition: margin 0.3s ease; }
+
+  /* ---------- Top bar (inside content) ---------- */
+  .topbar{
+    position:sticky; top:0; z-index:60;
+    backdrop-filter: blur(14px);
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar-inner{ display:flex; align-items:center; justify-content:flex-end; gap:14px; padding:16px 32px; width:100%; }
+  .status-chip{
+    display:flex; align-items:center; gap:7px;
+    font-family: var(--mono); font-size:0.72rem; color:var(--sage-deep);
+    border:1px solid var(--line); border-radius:999px;
+    padding:6px 12px;
+    background: var(--surface);
+  }
+  .status-dot{ width:6px; height:6px; border-radius:50%; background:var(--sage); animation: dotPulse 2.8s ease-in-out infinite; }
+
+  .btn{ display:inline-flex; align-items:center; gap:8px; padding:13px 26px; border-radius:999px; border:none;
+    font-family:'Manrope', sans-serif; font-weight:600; font-size:0.92rem; cursor:pointer; text-decoration:none;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease; }
+  .btn-primary{ background: linear-gradient(135deg, var(--ink), color-mix(in srgb, var(--ink) 82%, var(--accent) 18%)); color: var(--bg); }
+  .btn-primary:hover{ transform: translateY(-2px); box-shadow: 0 16px 34px var(--shadow-strong), 0 0 0 1px var(--accent-glow);}
+  .btn-primary:focus-visible{ outline:3px solid var(--sage); outline-offset:3px;}
+  .btn-ghost{ background: transparent; color: var(--ink); border:1.5px solid var(--line); }
+  .btn-ghost:hover{ border-color: var(--accent); background: var(--accent-glow); }
+  .btn-ghost:focus-visible{ outline:3px solid var(--sage); outline-offset:3px;}
+
+  /* ---------- Hero ---------- */
+  .hero{ position:relative; padding:70px 32px 90px; display:grid; grid-template-columns: 1.05fr 0.95fr;
+    gap:40px; align-items:center; max-width:1120px; margin:0 auto; overflow:visible; }
+  .eyebrow{ display:inline-flex; align-items:center; gap:8px; font-size:0.82rem; font-weight:600; color: var(--sage-deep);
+    text-transform:uppercase; letter-spacing:0.08em; margin-bottom:22px; }
+  .eyebrow::before{ content:''; width:7px; height:7px; border-radius:50%; background: var(--sage); flex-shrink:0;
+    animation: dotPulse 2.8s ease-in-out infinite; }
+  @keyframes dotPulse{ 0%,100%{ opacity:0.5; transform:scale(0.85);} 50%{ opacity:1; transform:scale(1.15);} }
+  .hero h1{ font-size: clamp(2.6rem, 5vw, 4rem); line-height:1.05; max-width:12ch; font-weight:450; }
+  .hero h1 em{ font-style:italic; font-weight:400; color: var(--sage-deep); }
+  .hero p{ margin-top:24px; font-size:1.1rem; color: var(--muted); max-width:44ch; }
+  .hero-actions{ display:flex; gap:14px; margin-top:34px; flex-wrap:wrap; }
+  .hero-meta{ display:flex; gap:26px; margin-top:44px; flex-wrap:wrap; }
+  .hero-meta div{ font-family: var(--mono); }
+  .hero-meta .num{ font-size:1.4rem; font-weight:500; color:var(--ink); display:block; }
+  .hero-meta .label{ font-size:0.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em; }
+
+  /* terminal card */
+  .terminal{
+    margin-top:30px; background:var(--code-bg); border-radius:18px; overflow:hidden;
+    border:1px solid var(--line); box-shadow:0 24px 50px var(--shadow-strong); max-width:440px;
+  }
+  .terminal-head{ display:flex; align-items:center; gap:7px; padding:11px 14px; background:rgba(255,255,255,0.04); }
+  .terminal-head span{ width:10px; height:10px; border-radius:50%; display:inline-block; }
+  .terminal-head span:nth-child(1){ background:#E7847B; }
+  .terminal-head span:nth-child(2){ background:#E7C97B; }
+  .terminal-head span:nth-child(3){ background:#7BC98A; }
+  .terminal-body{ padding:16px 18px 20px; font-family:var(--mono); font-size:0.82rem; color:var(--code-ink); line-height:1.75; }
+  .terminal-body .muted-line{ color:rgba(140,245,223,0.45); }
+  .caret{ display:inline-block; width:7px; height:14px; background:var(--code-ink); margin-left:2px; animation:blink 1.1s step-end infinite; vertical-align:-2px; }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  /* orb + circuit rig */
+  .orb-stage{ position:relative; height:360px; display:flex; align-items:center; justify-content:center; }
+  .rig-svg{ position:absolute; width:100%; height:100%; top:0; left:0; }
+  .rig-svg line, .rig-svg circle.node{ stroke: var(--line); }
+  .rig-svg circle.node{ fill: var(--surface); stroke-width:1.4; }
+  .rig-pulse{ animation: dashMove 3.2s linear infinite; stroke: var(--accent) !important; }
+  @keyframes dashMove{ to{ stroke-dashoffset:-40; } }
+
+  .orb{ position:absolute; border-radius:50%; filter: blur(0.5px); }
+  .orb-1{ width:230px; height:230px; background: radial-gradient(circle at 32% 30%, #fff 0%, var(--sage) 46%, var(--sage-deep) 100%);
+    opacity:0.92; animation: breathe 7s ease-in-out infinite; box-shadow: 0 40px 90px rgba(108,139,114,0.35); }
+  .orb-2{ width:160px; height:160px; background: radial-gradient(circle at 40% 35%, #fff 0%, var(--blush) 55%, #d99a92 100%);
+    opacity:0.78; animation: breathe 7s ease-in-out infinite 1.4s; transform: translate(80px,-60px); --ty:-60px; }
+  .orb-3{ width:112px; height:112px; background: radial-gradient(circle at 40% 35%, #fff 0%, var(--mist) 55%, #8ea9c1 100%);
+    opacity:0.72; animation: breathe 7s ease-in-out infinite 2.8s; transform: translate(-88px,72px); --ty:72px; }
+  @keyframes breathe{ 0%,100%{ transform: scale(1) translateY(var(--ty,0)); } 50%{ transform: scale(1.08) translateY(calc(var(--ty,0) - 10px)); } }
+
+  .orb-label{
+    position:absolute; bottom:10px; left:50%; transform:translateX(-50%);
+    font-family: var(--mono); font-size:0.68rem; color:var(--muted);
+    background: var(--surface); border:1px solid var(--line); border-radius:999px;
+    padding:6px 14px; display:flex; align-items:center; gap:8px; white-space:nowrap;
+  }
+
+  /* ---------- Marquee strip ---------- */
+  .strip{ border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:16px 0; overflow:hidden; background: var(--surface); }
+  .strip-track{ display:flex; gap:56px; white-space:nowrap; animation: scroll 26s linear infinite; width:max-content;
+    font-family: var(--mono); font-size:0.85rem; color: var(--muted); }
+  .strip-track span.dot{ color: var(--sage-deep); }
+  @keyframes scroll{ from{ transform: translateX(0); } to{ transform: translateX(-50%); } }
+
+  /* ---------- Sections ---------- */
+  .section{ padding:110px 32px; max-width:1120px; margin:0 auto; }
+  .section-head{ max-width:640px; margin-bottom:60px; }
+  .section-head .eyebrow{ color:var(--muted); }
+  .section-head .eyebrow::before{ background: var(--muted); animation:none; }
+  .section-head h2{ font-size: clamp(2rem, 3.4vw, 2.6rem); font-weight:450; line-height:1.15; }
+  .section-head p{ margin-top:18px; color:var(--muted); font-size:1.05rem; max-width:52ch; }
+
+  .principles{ display:grid; grid-template-columns:repeat(3, 1fr); gap:2px; background: var(--line); border-radius:var(--radius); overflow:hidden; }
+  .principle{ background: var(--surface); padding:44px 34px; transition: background 0.3s ease; }
+  .principle:hover{ background: color-mix(in srgb, var(--surface) 85%, var(--accent) 15%); }
+  .principle-icon{ width:44px; height:44px; border-radius:14px; display:flex; align-items:center; justify-content:center; margin-bottom:26px; transition: transform 0.3s ease; }
+  .principle-icon svg{ width:22px; height:22px; }
+  .principle:hover .principle-icon{ transform: scale(1.08) rotate(-4deg); }
+  .principle:nth-child(1) .principle-icon{ background: linear-gradient(150deg, rgba(140,168,145,0.28), rgba(140,168,145,0.12)); color:var(--sage-deep); }
+  .principle:nth-child(2) .principle-icon{ background: linear-gradient(150deg, rgba(231,182,176,0.32), rgba(231,182,176,0.14)); color:#C97A6E; }
+  .principle:nth-child(3) .principle-icon{ background: linear-gradient(150deg, rgba(174,195,214,0.32), rgba(174,195,214,0.14)); color:#5C7C99; }
+  html[data-theme="dark"] .principle:nth-child(2) .principle-icon{ color:var(--blush); }
+  html[data-theme="dark"] .principle:nth-child(3) .principle-icon{ color:var(--mist); }
+  .principle h3{ font-size:1.25rem; font-weight:500; margin-bottom:12px; }
+  .principle p{ color:var(--muted); font-size:0.98rem; }
+
+  /* ---------- How it works (system diagram) ---------- */
+  .system{
+    background: var(--surface);
+    border:1px solid var(--line);
+    border-radius: var(--radius);
+    padding:50px 40px;
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:0;
+    position:relative;
+  }
+  .system-step{ padding:0 30px; position:relative; }
+  .system-step:not(:last-child)::after{
+    content:'';
+    position:absolute; top:26px; right:-2px; width:calc(60px);
+    border-top:1.5px dashed var(--line);
+  }
+  .system-index{ font-family: var(--mono); font-size:0.75rem; color:var(--sage-deep); margin-bottom:16px; display:block; }
+  .system-step h3{ font-size:1.1rem; font-weight:500; margin-bottom:10px; }
+  .system-step p{ color:var(--muted); font-size:0.92rem; }
+  .system-chip{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:52px; height:52px; border-radius:14px; margin-bottom:18px;
+    background: linear-gradient(150deg, rgba(140,168,145,0.18), rgba(174,195,214,0.18));
+    border:1px solid var(--line);
+  }
+
+  /* ---------- Products ---------- */
+  .products{ display:grid; grid-template-columns: repeat(3, 1fr); gap:24px; }
+  .product-card{ background: var(--surface); border-radius:var(--radius); padding:36px 30px 30px; border:1px solid var(--line);
+    display:flex; flex-direction:column; transition: transform 0.35s ease, box-shadow 0.35s ease; cursor:pointer; }
+  .product-card:hover{ transform: translateY(-6px); box-shadow: 0 30px 60px var(--shadow-strong), 0 0 0 1px var(--accent-glow); }
+  .product-visual{ height:150px; border-radius:18px; margin-bottom:26px; position:relative; overflow:hidden;
+    display:flex; align-items:flex-end; padding:14px; }
+  .product-visual::after{ content:''; position:absolute; inset:0; background: radial-gradient(circle at 70% 20%, rgba(255,255,255,0.5), transparent 60%); }
+  .product-visual svg{ position:relative; z-index:1; width:100%; height:auto; opacity:0.85; }
+  .visual-aura{ background: linear-gradient(150deg, #C9DACB, var(--sage-deep)); }
+  .visual-glow{ background: linear-gradient(150deg, #F3D2CC, #D98F86); }
+  .visual-hum{ background: linear-gradient(150deg, #CFE0EC, #6E93AF); }
+  .product-card h3{ font-size:1.2rem; font-weight:500; margin-bottom:8px; }
+  .product-card .tag{ font-family: var(--mono); font-size:0.72rem; font-weight:500; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--muted); margin-bottom:6px; }
+  .product-card p{ color:var(--muted); font-size:0.95rem; flex-grow:1; }
+  .product-card .price{ margin-top:20px; padding-top:20px; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; align-items:center; font-weight:600; font-size:0.95rem; }
+  .product-card .price .mono{ font-size:0.78rem; color:var(--muted); font-weight:400; }
+  .product-viz-hint{
+    margin-top:14px; display:flex; align-items:center; gap:6px; font-family:var(--mono); font-size:0.72rem;
+    color:var(--accent); opacity:0; transform:translateY(4px); transition:opacity 0.25s ease, transform 0.25s ease;
+  }
+  .product-card:hover .product-viz-hint{ opacity:1; transform:translateY(0); }
+
+  /* ---------- Quote ---------- */
+  .quote-section{
+    background: var(--code-bg); color: var(--code-ink); border-radius:var(--radius); margin:0 32px 110px;
+    padding:80px 60px; text-align:center; position:relative; overflow:hidden;
+    border:1px solid var(--line);
+    box-shadow: 0 40px 90px -30px rgba(0,0,0,0.45);
+  }
+  .quote-section::before{ content:''; position:absolute; inset:0;
+    background: radial-gradient(circle at 20% 20%, rgba(140,168,145,0.28), transparent 55%),
+                radial-gradient(circle at 85% 80%, rgba(231,182,176,0.22), transparent 55%),
+                radial-gradient(circle at 1.5px 1.5px, rgba(237,238,245,0.06) 1.5px, transparent 0);
+    background-size: auto, auto, 26px 26px; }
+  .quote-section::after{ content:''; position:absolute; inset:0; border-radius:inherit; padding:1px;
+    background: linear-gradient(120deg, var(--sage), var(--mist), var(--blush), var(--sage));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude; opacity:0.35; pointer-events:none; }
+  .quote-section blockquote{ position:relative; font-family:'Fraunces', serif; font-size: clamp(1.5rem, 2.8vw, 2.1rem);
+    font-weight:400; font-style:italic; max-width:22ch; margin:0 auto 28px; line-height:1.3; color:#fff; }
+  .quote-section cite{ position:relative; font-style:normal; font-size:0.92rem; color: rgba(201,233,228,0.7); display:block; }
+
+  /* ---------- Queries / FAQ ---------- */
+  .queries-panel{ background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; margin-bottom:36px; }
+  .query-item{ border-bottom:1px solid var(--line); }
+  .query-item:last-child{ border-bottom:none; }
+  .query-item summary{
+    list-style:none; cursor:pointer; padding:22px 28px; display:flex; align-items:center; justify-content:space-between;
+    gap:16px; font-weight:600; font-size:1rem;
+  }
+  .query-item summary::-webkit-details-marker{ display:none; }
+  .query-item summary .q-tag{ font-family:var(--mono); font-size:0.72rem; color:var(--accent); margin-right:10px; }
+  .query-item summary::after{
+    content:'+'; font-family:var(--mono); font-size:1.3rem; color:var(--muted); transition:transform 0.25s ease; flex-shrink:0;
+  }
+  .query-item[open] summary::after{ content:'–'; }
+  .query-item .q-body{ padding:0 28px 24px; color:var(--muted); font-size:0.96rem; max-width:70ch; }
+
+  .ask-box{
+    background:var(--code-bg); border-radius:var(--radius); padding:36px; color:var(--code-ink);
+    font-family:var(--mono);
+  }
+  .ask-box h3{ font-family:var(--mono); font-size:1rem; color:#fff; margin-bottom:6px; font-weight:600; }
+  .ask-box p{ color:rgba(140,245,223,0.55); font-size:0.85rem; margin-bottom:20px; }
+  .ask-form{ display:flex; gap:10px; flex-wrap:wrap; }
+  .ask-form input{
+    flex:1; min-width:220px; padding:13px 16px; border-radius:10px; border:1px solid rgba(140,245,223,0.25);
+    background:rgba(255,255,255,0.04); color:var(--code-ink); font-family:var(--mono); font-size:0.88rem; outline:none;
+  }
+  .ask-form input::placeholder{ color:rgba(140,245,223,0.35); }
+  .ask-form button{
+    padding:13px 22px; border-radius:10px; border:none; background:var(--accent); color:#08201d;
+    font-family:var(--mono); font-weight:600; font-size:0.88rem; cursor:pointer; transition:opacity 0.2s ease;
+  }
+  .ask-form button:hover{ opacity:0.85; }
+  .query-log{ margin-top:22px; display:flex; flex-direction:column; gap:10px; font-size:0.85rem; }
+  .query-log-item{ padding:12px 14px; border-radius:8px; background:rgba(255,255,255,0.03); border:1px solid rgba(140,245,223,0.12); }
+  .query-log-item .qlabel{ color:var(--accent); }
+
+  /* ---------- CTA / Footer ---------- */
+  .cta-section{ text-align:center; padding-bottom:50px; }
+  .cta-section h2{ font-size: clamp(2rem, 4vw, 3rem); max-width:16ch; margin:0 auto 20px; }
+  .cta-section p{ color:var(--muted); margin-bottom:36px; }
+  .waitlist-form{ display:flex; gap:10px; max-width:420px; margin:0 auto; }
+  .waitlist-form input{ flex-grow:1; padding:14px 20px; border-radius:999px; border:1.5px solid var(--line);
+    background: var(--surface); font-family:'Manrope', sans-serif; font-size:0.95rem; color:var(--ink); outline:none;
+    transition:border-color 0.25s ease; }
+  .waitlist-form input:focus-visible{ border-color: var(--sage-deep); }
+  .form-note{ margin-top:14px; font-size:0.82rem; color:var(--muted); min-height:1.2em; font-family: var(--mono); }
+
+  footer{ border-top:1px solid var(--line); padding:44px 32px; }
+  .footer-inner{ max-width:1120px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; }
+  .footer-links{ display:flex; gap:28px; list-style:none; font-size:0.88rem; color:var(--muted); }
+  .footer-links a{ text-decoration:none; transition:color 0.25s ease; }
+  .footer-links a:hover{ color:var(--ink); }
+  .footer-copy{ font-size:0.85rem; color:var(--muted); font-family: var(--mono); }
+
+  /* ---------- Compare table ---------- */
+  .compare-wrap{ overflow-x:auto; border:1px solid var(--line); border-radius:var(--radius); background:var(--surface); }
+  table.compare{ width:100%; border-collapse:collapse; min-width:640px; }
+  table.compare th, table.compare td{ padding:18px 22px; text-align:left; border-bottom:1px solid var(--line); font-size:0.92rem; }
+  table.compare thead th{ font-family:'Fraunces', serif; font-size:1.05rem; font-weight:500; color:var(--ink); background:transparent; }
+  table.compare thead th:first-child{ font-family:var(--mono); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); font-weight:600; }
+  table.compare tbody th{ font-family:var(--mono); font-size:0.78rem; color:var(--muted); font-weight:500; white-space:nowrap; }
+  table.compare tbody tr:last-child td, table.compare tbody tr:last-child th{ border-bottom:none; }
+  table.compare tbody tr:hover td{ background: var(--accent-glow); }
+  .compare-best{ display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:0.7rem; color:var(--sage-deep); margin-top:4px; }
+
+  /* ---------- Specs panel ---------- */
+  .specs-tabs{ display:flex; gap:8px; margin-bottom:24px; flex-wrap:wrap; }
+  .specs-tab{
+    padding:10px 20px; border-radius:999px; border:1px solid var(--line); background:var(--surface);
+    color:var(--muted); font-family:var(--mono); font-size:0.82rem; font-weight:600; cursor:pointer; transition:0.25s ease;
+  }
+  .specs-tab:hover{ color:var(--ink); }
+  .specs-tab.is-active{ background:var(--ink); color:var(--bg); border-color:var(--ink); }
+  .specs-panel{ display:none; background:var(--code-bg); border-radius:var(--radius); padding:36px 40px; color:var(--code-ink); font-family:var(--mono); }
+  .specs-panel.is-active{ display:block; }
+  .specs-panel h3{ font-family:var(--mono); color:#fff; font-size:1.05rem; margin-bottom:24px; display:flex; align-items:center; gap:10px; }
+  .specs-panel h3::before{ content:''; width:8px; height:8px; border-radius:50%; background:var(--accent); }
+  .specs-grid{ display:grid; grid-template-columns:repeat(2, 1fr); gap:0 40px; }
+  .specs-row{ display:flex; justify-content:space-between; gap:14px; padding:13px 0; border-bottom:1px solid rgba(140,245,223,0.12); font-size:0.85rem; }
+  .specs-row span:first-child{ color:rgba(186,252,236,0.5); }
+  .specs-row span:last-child{ color:var(--code-ink); text-align:right; }
+
+  /* ---------- Blog ---------- */
+  .blog-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:24px; }
+  .blog-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:30px;
+    display:flex; flex-direction:column; cursor:pointer; transition:transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .blog-card:hover{ transform:translateY(-5px); box-shadow:0 24px 50px var(--shadow-strong); }
+  .blog-meta{ display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:0.72rem; color:var(--accent); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:16px; }
+  .blog-meta .sep{ color:var(--line); }
+  .blog-card h3{ font-size:1.15rem; font-weight:500; margin-bottom:10px; line-height:1.3; }
+  .blog-card p{ color:var(--muted); font-size:0.92rem; flex-grow:1; }
+  .blog-read{ margin-top:18px; font-family:var(--mono); font-size:0.8rem; font-weight:600; color:var(--ink); display:flex; align-items:center; gap:6px; }
+
+  /* ---------- Topbar utilities: search + auth ---------- */
+  .topbar-inner{ justify-content:space-between !important; }
+  .topbar-search{
+    display:flex; align-items:center; gap:10px; padding:10px 16px; border-radius:999px;
+    border:1px solid var(--line); background:var(--surface); color:var(--muted); cursor:pointer;
+    font-family:'Manrope',sans-serif; font-size:0.85rem; min-width:0; flex-shrink:1; transition:border-color 0.2s ease;
+  }
+  .topbar-search:hover{ border-color:var(--accent); }
+  .topbar-search svg{ width:16px; height:16px; flex-shrink:0; }
+  .topbar-search kbd{
+    margin-left:auto; font-family:var(--mono); font-size:0.68rem; background:var(--bg); border:1px solid var(--line);
+    border-radius:6px; padding:2px 6px; color:var(--muted);
+  }
+  .topbar-right{ display:flex; align-items:center; gap:12px; }
+
+  /* ---------- Modal shell ---------- */
+  .modal-overlay{
+    display:none; position:fixed; inset:0; background:rgba(4,5,12,0.55); backdrop-filter:blur(4px);
+    z-index:300; align-items:flex-start; justify-content:center; padding:12vh 20px 20px;
+  }
+  .modal-overlay.open{ display:flex; }
+  .modal-box{
+    background:var(--surface); border:1px solid var(--line); border-radius:20px; width:100%; max-width:560px;
+    box-shadow:0 40px 90px var(--shadow-strong); max-height:70vh; display:flex; flex-direction:column; overflow:hidden;
+  }
+  .modal-box.modal-wide{ max-width:680px; }
+  .modal-head{ display:flex; align-items:center; justify-content:space-between; padding:18px 24px; border-bottom:1px solid var(--line); }
+  .modal-head h3{ font-family:var(--mono); font-size:0.95rem; font-weight:600; }
+  .modal-close{ background:none; border:none; color:var(--muted); cursor:pointer; font-size:1.3rem; line-height:1; padding:4px; }
+  .modal-close:hover{ color:var(--ink); }
+  .modal-body{ padding:20px 24px; overflow-y:auto; }
+
+  /* search palette */
+  .search-input-row{ display:flex; align-items:center; gap:12px; padding:16px 24px; border-bottom:1px solid var(--line); }
+  .search-input-row svg{ width:18px; height:18px; color:var(--muted); flex-shrink:0; }
+  #searchInput{ flex:1; border:none; outline:none; background:transparent; font-size:1rem; color:var(--ink); font-family:'Manrope',sans-serif; }
+  .search-results{ padding:10px; max-height:46vh; overflow-y:auto; }
+  .search-result{
+    display:flex; align-items:center; justify-content:space-between; gap:12px; padding:13px 14px; border-radius:12px;
+    cursor:pointer; color:var(--ink); text-decoration:none;
+  }
+  .search-result:hover{ background:var(--accent-glow); }
+  .search-result .sr-tag{ font-family:var(--mono); font-size:0.68rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em; }
+  .search-empty{ padding:30px 24px; text-align:center; color:var(--muted); font-size:0.9rem; }
+
+  /* blog post modal body */
+  .post-modal-meta{ font-family:var(--mono); font-size:0.75rem; color:var(--accent); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:14px; }
+  .post-modal-body p{ color:var(--muted); font-size:0.96rem; margin-bottom:14px; line-height:1.7; }
+  .post-modal-body p:last-child{ margin-bottom:0; }
+
+  /* ---------- Product visualizer modal ---------- */
+  .modal-box.modal-viz{ max-width:900px; }
+  .viz-layout{ display:grid; grid-template-columns: 1.1fr 0.9fr; gap:0; }
+  .viz-stage-col{
+    background: var(--bg); border-right:1px solid var(--line);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:24px; position:relative; min-height:380px;
+  }
+  .viz-stage{
+    width:100%; height:300px; perspective:900px; display:flex; align-items:center; justify-content:center;
+    cursor:grab; touch-action:none; user-select:none;
+  }
+  .viz-stage.is-dragging{ cursor:grabbing; }
+  .viz-rotator{ position:relative; transform-style:preserve-3d; transition: transform 0.15s ease-out; will-change: transform; }
+  .viz-stage.is-dragging .viz-rotator{ transition:none; }
+  .viz-face{
+    position:absolute; top:50%; left:50%; display:flex; align-items:center; justify-content:center;
+    backface-visibility: visible; border:1px solid rgba(255,255,255,0.18);
+  }
+  .viz-face-front{ display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-end; padding:14px; }
+  .viz-face-front .vf-name{ font-family:'Fraunces', serif; font-size:1.1rem; color:#fff; font-weight:500; }
+  .viz-face-front .vf-tag{ font-family:var(--mono); font-size:0.62rem; color:rgba(255,255,255,0.75); text-transform:uppercase; letter-spacing:0.05em; margin-top:2px; }
+  .viz-hint{
+    margin-top:18px; font-family:var(--mono); font-size:0.72rem; color:var(--muted);
+    display:flex; align-items:center; gap:8px;
+  }
+  .viz-reset{
+    margin-top:10px; font-family:var(--mono); font-size:0.72rem; color:var(--accent); background:none; border:none;
+    cursor:pointer; text-decoration:underline; text-underline-offset:3px;
+  }
+  .viz-info-col{ padding:30px 34px; overflow-y:auto; }
+  .viz-info-tag{ font-family:var(--mono); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent); margin-bottom:8px; }
+  .viz-info-col h3{ font-size:1.5rem; font-weight:500; margin-bottom:12px; }
+  .viz-info-col p{ color:var(--muted); font-size:0.95rem; margin-bottom:20px; }
+  .viz-dims{
+    display:flex; gap:18px; flex-wrap:wrap; margin-bottom:20px; padding:16px; border-radius:14px;
+    background: var(--bg); border:1px solid var(--line);
+  }
+  .viz-dims div{ font-family:var(--mono); }
+  .viz-dims .vd-num{ font-size:1.05rem; font-weight:600; color:var(--ink); display:block; }
+  .viz-dims .vd-label{ font-size:0.68rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.04em; }
+  .viz-price-row{ display:flex; justify-content:space-between; align-items:center; padding-top:18px; border-top:1px solid var(--line); margin-bottom:20px; }
+  .viz-price-row .vp-price{ font-size:1.2rem; font-weight:600; }
+  .viz-cta{ display:flex; gap:10px; flex-wrap:wrap; }
+  .viz-switcher{ display:flex; gap:8px; margin-top:22px; }
+  .viz-switcher button{
+    flex:1; padding:9px; border-radius:10px; border:1px solid var(--line); background:var(--surface);
+    color:var(--muted); font-family:var(--mono); font-size:0.75rem; font-weight:600; cursor:pointer; transition:0.2s ease;
+  }
+  .viz-switcher button.is-active{ background:var(--ink); color:var(--bg); border-color:var(--ink); }
+
+  @media (max-width: 760px){
+    .viz-layout{ grid-template-columns:1fr; }
+    .viz-stage-col{ border-right:none; border-bottom:1px solid var(--line); min-height:320px; }
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1180px){
+    .topbar-search span, .topbar-search kbd{ display:none; }
+    .topbar-search{ padding:10px; }
+  }
+
+  @media (max-width: 980px){
+    .topnav{ display:none; }
+    .topbar-controls{ display:none; }
+    .mobile-menu-toggle{ display:flex; }
+    .topbar-left{ gap:16px; }
+  }
+
+  @media (max-width: 880px){
+    .hero{ grid-template-columns:1fr; padding-top:90px; }
+    .orb-stage{ height:260px; order:-1; }
+    .principles{ grid-template-columns:1fr; }
+    .products{ grid-template-columns:1fr; }
+    .system{ grid-template-columns:1fr; gap:36px; }
+    .system-step::after{ display:none; }
+    .quote-section{ margin:0 16px 90px; padding:60px 28px; }
+    .waitlist-form{ flex-direction:column; }
+    .ask-form{ flex-direction:column; }
+    .hero-meta{ gap:20px; }
+    .blog-grid{ grid-template-columns:1fr; }
+    .specs-grid{ grid-template-columns:1fr; }
+    .topbar-search{ min-width:0; flex:1; }
+    .topbar-search span, .topbar-search kbd{ display:none; }
+    .topbar-inner{ padding:14px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="content" id="mainContent">
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <a class="logo" href="#home"><span class="logo-mark"></span>Soft Tech</a>
+      <nav class="topnav" id="topnav">
+        <div class="nav-dropdown" id="homeDropdown">
+          <button class="nav-dropdown-toggle" type="button" data-section="home" data-i18n="nav_home">Home</button>
+          <div class="nav-dropdown-menu">
+            <a href="#philosophy" data-section="philosophy" data-i18n="nav_philosophy">Philosophy</a>
+            <a href="#how" data-section="how" data-i18n="nav_how">How it works</a>
+          </div>
+        </div>
+        <div class="nav-dropdown" id="productsDropdown">
+          <button class="nav-dropdown-toggle" type="button" data-section="products" data-i18n="nav_products_group">About Products</button>
+          <div class="nav-dropdown-menu">
+            <a href="#products" data-section="products" data-i18n="nav_products">Products</a>
+            <a href="#compare" data-section="compare" data-i18n="nav_compare">Compare</a>
+            <a href="#specs" data-section="specs" data-i18n="nav_specs">Specs</a>
+          </div>
+        </div>
+        <a href="#blog" data-section="blog" data-i18n="nav_blog">Blog</a>
+        <a href="#queries" data-section="queries" data-i18n="nav_queries">Queries</a>
+      </nav>
+    </div>
+    <div class="topbar-right">
+      <button class="topbar-search" id="searchTrigger" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <span data-i18n="search_placeholder">Search sections, specs, notes…</span>
+        <kbd>⌘K</kbd>
+      </button>
+      <div class="topbar-controls">
+        <div class="theme-toggle theme-toggle-mini">
+          <button type="button" id="themeLight" class="is-active" aria-label="Light theme">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+            <span data-i18n="theme_light">Light</span>
+          </button>
+          <button type="button" id="themeDark" aria-label="Dark theme">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+            <span data-i18n="theme_dark">Dark</span>
+          </button>
+        </div>
+        <select class="lang-select lang-select-mini" id="langSelect">
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="fr">Français</option>
+          <option value="de">Deutsch</option>
+          <option value="hi">हिन्दी</option>
+          <option value="sw">Kiswahili</option>
+        </select>
+      </div>
+      <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-group" id="mobileHomeGroup">
+      <button class="mobile-nav-toggle" type="button" data-section="home" data-i18n="nav_home">Home</button>
+      <div class="mobile-nav-submenu">
+        <a href="#philosophy" data-section="philosophy" data-i18n="nav_philosophy">Philosophy</a>
+        <a href="#how" data-section="how" data-i18n="nav_how">How it works</a>
+      </div>
+    </div>
+    <div class="mobile-nav-group" id="mobileProductsGroup">
+      <button class="mobile-nav-toggle" type="button" data-section="products" data-i18n="nav_products_group">About Products</button>
+      <div class="mobile-nav-submenu">
+        <a href="#products" data-section="products" data-i18n="nav_products">Products</a>
+        <a href="#compare" data-section="compare" data-i18n="nav_compare">Compare</a>
+        <a href="#specs" data-section="specs" data-i18n="nav_specs">Specs</a>
+      </div>
+    </div>
+    <a href="#blog" data-section="blog" data-i18n="nav_blog">Blog</a>
+    <a href="#queries" data-section="queries" data-i18n="nav_queries">Queries</a>
+    <a href="#join" data-section="join" data-i18n="nav_join">Join</a>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+  <div>
+    <div class="eyebrow" data-i18n="hero_eyebrow">Calm computing, made real</div>
+    <h1 data-i18n-html="hero_h1">Technology that <em>breathes</em> with you, not at you.</h1>
+    <p data-i18n="hero_p">Soft Tech builds ambient sensors and a low-power edge processor — the "soft-core" — that read a room and respond in light, warmth, and sound instead of screens and alerts.</p>
+    <div class="hero-actions">
+      <a href="#join" class="btn btn-primary" data-i18n="btn_join">Join the waitlist</a>
+      <a href="#how" class="btn btn-ghost" data-i18n="btn_how">See how it works</a>
+    </div>
+    <div class="hero-meta">
+      <div><span class="num">12ms</span><span class="label" data-i18n="meta1_label">sensor response</span></div>
+      <div><span class="num">30 days</span><span class="label" data-i18n="meta2_label">battery on one charge</span></div>
+      <div><span class="num">0</span><span class="label" data-i18n="meta3_label">apps required</span></div>
+    </div>
+
+    <div class="terminal" aria-hidden="true">
+      <div class="terminal-head"><span></span><span></span><span></span></div>
+      <div class="terminal-body">
+        <div><span class="muted-line">$</span> soft-core --status</div>
+        <div>› sensing: <span style="color:var(--accent)">active</span></div>
+        <div>› latency: 12ms</div>
+        <div>› cloud calls: 0</div>
+        <div><span class="muted-line">$</span> <span class="caret"></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="orb-stage" aria-hidden="true">
+    <svg class="rig-svg" viewBox="0 0 440 440">
+      <line x1="40" y1="60" x2="180" y2="150" stroke-width="1.2"/>
+      <line x1="400" y1="90" x2="260" y2="160" stroke-width="1.2"/>
+      <line x1="60" y1="380" x2="200" y2="290" stroke-width="1.2"/>
+      <line x1="150" y1="30" x2="220" y2="120" stroke-width="1.2" stroke-dasharray="4 6" class="rig-pulse"/>
+      <line x1="330" y1="360" x2="250" y2="280" stroke-width="1.2" stroke-dasharray="4 6" class="rig-pulse"/>
+      <circle class="node" cx="40" cy="60" r="4"/>
+      <circle class="node" cx="400" cy="90" r="4"/>
+      <circle class="node" cx="60" cy="380" r="4"/>
+      <circle class="node" cx="150" cy="30" r="4"/>
+      <circle class="node" cx="330" cy="360" r="4"/>
+    </svg>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="orb-label mono"><span class="status-dot"></span><span data-i18n="orb_label">soft-core · idle</span></div>
+  </div>
+</section>
+
+<div class="strip" aria-hidden="true">
+  <div class="strip-track">
+    <span>ambient sensing</span><span class="dot">·</span>
+    <span>edge processing</span><span class="dot">·</span>
+    <span>zero-config setup</span><span class="dot">·</span>
+    <span>encrypted on-device</span><span class="dot">·</span>
+    <span>ambient sensing</span><span class="dot">·</span>
+    <span>edge processing</span><span class="dot">·</span>
+    <span>zero-config setup</span><span class="dot">·</span>
+    <span>encrypted on-device</span><span class="dot">·</span>
+  </div>
+</div>
+
+<section class="section" id="philosophy">
+  <div class="section-head">
+    <div class="eyebrow" data-i18n="philosophy_eyebrow">Philosophy</div>
+    <h2 data-i18n="philosophy_h2">Real hardware, three quiet rules.</h2>
+    <p data-i18n="philosophy_p">Every sensor, chip, and material we choose is measured against the same three ideas.</p>
+  </div>
+  <div class="principles">
+    <div class="principle">
+      <div class="principle-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#6C8B72" stroke-width="1.6"><path d="M3 12h3l2-7 4 14 2-7h7"/></svg>
+      </div>
+      <h3 data-i18n="principle1_title">Quiet</h3>
+      <p data-i18n="principle1_p">No push notifications. Devices signal through light and gentle motion, processed entirely on-device.</p>
+    </div>
+    <div class="principle">
+      <div class="principle-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#C97A6E" stroke-width="1.6"><rect x="6" y="6" width="12" height="12" rx="3"/><path d="M6 3v3M18 3v3M6 18v3M18 18v3M3 6h3M18 6h3M3 18h3M18 18h3"/></svg>
+      </div>
+      <h3 data-i18n="principle2_title">Warm</h3>
+      <p data-i18n="principle2_p">Custom silicon, wrapped in soft materials and rounded resistance instead of cold glass and hard clicks.</p>
+    </div>
+    <div class="principle">
+      <div class="principle-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#5A7C9A" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M19.1 4.9l-2.8 2.8M7.7 16.3l-2.8 2.8"/></svg>
+      </div>
+      <h3 data-i18n="principle3_title">Present</h3>
+      <p data-i18n="principle3_p">Each processor runs one task well, then drops to microwatt idle — nothing to configure daily.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="how">
+  <div class="section-head">
+    <div class="eyebrow" data-i18n="how_eyebrow">How it works</div>
+    <h2 data-i18n="how_h2">Sense, process, respond — entirely on-device.</h2>
+    <p data-i18n="how_p">No cloud round-trip. The soft-core reads its environment and reacts locally, in under 15 milliseconds.</p>
+  </div>
+  <div class="system">
+    <div class="system-step">
+      <span class="system-index mono">01 · sense</span>
+      <div class="system-chip">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6C8B72" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M12 5v2M12 17v2M5 12h2M17 12h2"/></svg>
+      </div>
+      <h3 data-i18n="step1_title">Ambient sensors</h3>
+      <p data-i18n="step1_p">Light, sound, motion, and proximity sampled continuously at microwatt power draw.</p>
+    </div>
+    <div class="system-step">
+      <span class="system-index mono">02 · process</span>
+      <div class="system-chip">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C97A6E" stroke-width="1.6"><rect x="5" y="5" width="14" height="14" rx="3"/><path d="M9 9h6v6H9z"/></svg>
+      </div>
+      <h3 data-i18n="step2_title">Soft-core chip</h3>
+      <p data-i18n="step2_p">A dedicated low-power processor interprets patterns on-device — nothing leaves the room.</p>
+    </div>
+    <div class="system-step">
+      <span class="system-index mono">03 · respond</span>
+      <div class="system-chip">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5A7C9A" stroke-width="1.6"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="5"/></svg>
+      </div>
+      <h3 data-i18n="step3_title">Ambient output</h3>
+      <p data-i18n="step3_p">Light shifts, sound softens, or nothing happens at all — the correct response, most of the time.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="products">
+  <div class="section-head">
+    <div class="eyebrow" data-i18n="products_eyebrow">Products</div>
+    <h2 data-i18n="products_h2">A small, deliberate lineup.</h2>
+    <p data-i18n="products_p">We'd rather ship three devices well than ten loudly. Each runs its own soft-core chip.</p>
+  </div>
+  <div class="products">
+    <div class="product-card" data-product="aura">
+      <div class="product-visual visual-aura">
+        <svg viewBox="0 0 200 40" preserveAspectRatio="none"><path d="M0 30 Q 20 10 40 25 T 80 20 T 120 28 T 160 15 T 200 24" fill="none" stroke="#fff" stroke-width="2"/></svg>
+      </div>
+      <div class="tag" data-i18n="product1_tag">Ambient light · rev 2</div>
+      <h3 data-i18n="product1_h3">Aura</h3>
+      <p data-i18n="product1_p">A desk lamp with a light sensor and soft-core chip that tracks daylight instead of a timer.</p>
+      <div class="price"><span data-i18n="product1_price">From $129</span><span class="mono">12ms resp.</span></div>
+      <div class="product-viz-hint"><span>◐</span><span data-i18n="viz_hint">Click to visualize in 3D</span></div>
+    </div>
+    <div class="product-card" data-product="glow">
+      <div class="product-visual visual-glow">
+        <svg viewBox="0 0 200 40" preserveAspectRatio="none"><path d="M0 20 Q 20 5 40 20 T 80 20 T 120 20 T 160 20 T 200 20" fill="none" stroke="#fff" stroke-width="2"/></svg>
+      </div>
+      <div class="tag" data-i18n="product2_tag">Focus companion · rev 1</div>
+      <h3 data-i18n="product2_h3">Glow</h3>
+      <p data-i18n="product2_p">A biofeedback light with an on-board breath sensor that syncs its pulse to yours in real time.</p>
+      <div class="price"><span data-i18n="product2_price">From $89</span><span class="mono">30-day batt.</span></div>
+      <div class="product-viz-hint"><span>◐</span><span data-i18n="viz_hint">Click to visualize in 3D</span></div>
+    </div>
+    <div class="product-card" data-product="hum">
+      <div class="product-visual visual-hum">
+        <svg viewBox="0 0 200 40" preserveAspectRatio="none"><path d="M0 20 L10 8 L20 32 L30 12 L40 28 L50 18 L60 22 L70 10 L80 30 L90 20 L100 16 L110 24 L120 18 L130 22 L140 14 L150 26 L160 20 L170 18 L180 22 L190 16 L200 20" fill="none" stroke="#fff" stroke-width="1.6"/></svg>
+      </div>
+      <div class="tag" data-i18n="product3_tag">Sound object · rev 3</div>
+      <h3 data-i18n="product3_h3">Hum</h3>
+      <p data-i18n="product3_p">A speaker with a single dial and a DSP tuned by hand — no app, no equalizer to manage.</p>
+      <div class="price"><span data-i18n="product3_price">From $159</span><span class="mono">0 apps</span></div>
+      <div class="product-viz-hint"><span>◐</span><span data-i18n="viz_hint">Click to visualize in 3D</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="compare">
+  <div class="section-head">
+    <div class="eyebrow" data-i18n="compare_eyebrow">Compare</div>
+    <h2 data-i18n="compare_h2">Same principles, different jobs.</h2>
+    <p data-i18n="compare_p">Every device runs a soft-core chip — here's how the three stack up side by side.</p>
+  </div>
+  <div class="compare-wrap">
+    <table class="compare">
+      <thead>
+        <tr>
+          <th data-i18n="compare_col_feature">Feature</th>
+          <th>Aura</th>
+          <th>Glow</th>
+          <th>Hum</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th data-i18n="compare_row_price">Price</th>
+          <td>$129</td><td>$89</td><td>$159</td>
+        </tr>
+        <tr>
+          <th data-i18n="compare_row_best">Best for</th>
+          <td data-i18n="compare_aura_best">Desk lighting</td>
+          <td data-i18n="compare_glow_best">Focus &amp; breathing</td>
+          <td data-i18n="compare_hum_best">Ambient sound</td>
+        </tr>
+        <tr>
+          <th data-i18n="compare_row_response">Response time</th>
+          <td>12ms</td><td>15ms</td><td>8ms</td>
+        </tr>
+        <tr>
+          <th data-i18n="compare_row_power">Power</th>
+          <td data-i18n="compare_aura_power">USB-C, 4.5W</td>
+          <td data-i18n="compare_glow_power">30-day battery</td>
+          <td data-i18n="compare_hum_power">USB-C, 8W</td>
+        </tr>
+        <tr>
+          <th data-i18n="compare_row_sensors">Sensors</th>
+          <td data-i18n="compare_aura_sensors">Ambient light</td>
+          <td data-i18n="compare_glow_sensors">Breath + light</td>
+          <td data-i18n="compare_hum_sensors">—</td>
+        </tr>
+        <tr>
+          <th data-i18n="compare_row_app">App required</th>
+          <td data-i18n="compare_no">No</td>
+          <td data-i18n="compare_no">No</td>
+          <td data-i18n="compare_no">No</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section" id="specs">
+  <div class="section-head">
+    <div class="eyebrow" data-i18n="specs_eyebrow">Specifications</div>
+    <h2 data-i18n="specs_h2">Full spec sheet, per device.</h2>
+    <p data-i18n="specs_p">Everything under the hood — chip, sensors, materials, and power.</p>
+  </div>
+  <div class="specs-tabs">
+    <button class="specs-tab is-active" data-specs="aura">Aura</button>
+    <button class="specs-tab" data-specs="glow">Glow</button>
+    <button class="specs-tab" data-specs="hum">Hum</button>
+  </div>
+
+  <div class="specs-panel is-active" id="specs-aura">
+    <h3>soft-core · Aura · rev 2</h3>
+    <div class="specs-grid">
+      <div class="specs-row"><span data-i18n="specs_chip">Chip</span><span>soft-core S1</span></div>
+      <div class="specs-row"><span data-i18n="specs_sensors">Sensors</span><span data-i18n="specs_aura_sensors">Ambient light, 10–100,000 lux</span></div>
+      <div class="specs-row"><span data-i18n="specs_connectivity">Connectivity</span><span>Bluetooth LE 5.2</span></div>
+      <div class="specs-row"><span data-i18n="specs_power">Power</span><span>USB-C, 4.5W</span></div>
+      <div class="specs-row"><span data-i18n="specs_dimensions">Dimensions</span><span>180 × 90 × 90 mm</span></div>
+      <div class="specs-row"><span data-i18n="specs_weight">Weight</span><span>420 g</span></div>
+      <div class="specs-row"><span data-i18n="specs_response">Response time</span><span>12 ms</span></div>
+      <div class="specs-row"><span data-i18n="specs_materials">Materials</span><span data-i18n="specs_aura_materials">Recycled aluminum, soft-touch silicone</span></div>
+    </div>
+  </div>
+
+  <div class="specs-panel" id="specs-glow">
+    <h3>soft-core · Glow · rev 1</h3>
+    <div class="specs-grid">
+      <div class="specs-row"><span data-i18n="specs_chip">Chip</span><span>soft-core S1 Mini</span></div>
+      <div class="specs-row"><span data-i18n="specs_sensors">Sensors</span><span data-i18n="specs_glow_sensors">Capacitive breath sensor, ambient light</span></div>
+      <div class="specs-row"><span data-i18n="specs_connectivity">Connectivity</span><span>Bluetooth LE 5.2</span></div>
+      <div class="specs-row"><span data-i18n="specs_power">Power</span><span data-i18n="specs_glow_power">Li-ion, 30-day battery</span></div>
+      <div class="specs-row"><span data-i18n="specs_dimensions">Dimensions</span><span>70 × 70 × 40 mm</span></div>
+      <div class="specs-row"><span data-i18n="specs_weight">Weight</span><span>110 g</span></div>
+      <div class="specs-row"><span data-i18n="specs_response">Response time</span><span>15 ms</span></div>
+      <div class="specs-row"><span data-i18n="specs_materials">Materials</span><span data-i18n="specs_glow_materials">Soft-touch silicone shell</span></div>
+    </div>
+  </div>
+
+  <div class="specs-panel" id="specs-hum">
+    <h3>soft-core · Hum · rev 3</h3>
+    <div class="specs-grid">
+      <div class="specs-row"><span data-i18n="specs_chip">Chip</span><span>soft-core S2 DSP</span></div>
+      <div class="specs-row"><span data-i18n="specs_sensors">Sensors</span><span data-i18n="specs_hum_sensors">None — audio only</span></div>
+      <div class="specs-row"><span data-i18n="specs_connectivity">Connectivity</span><span>Bluetooth LE 5.2, 3.5mm</span></div>
+      <div class="specs-row"><span data-i18n="specs_power">Power</span><span>USB-C, 8W</span></div>
+      <div class="specs-row"><span data-i18n="specs_dimensions">Dimensions</span><span>140 × 140 × 160 mm</span></div>
+      <div class="specs-row"><span data-i18n="specs_weight">Weight</span><span>680 g</span></div>
+      <div class="specs-row"><span data-i18n="specs_response">Response time</span><span data-i18n="specs_hum_response">8 ms audio latency</span></div>
+      <div class="specs-row"><span data-i18n="specs_materials">Materials</span><span data-i18n="specs_hum_materials">Powder-coated steel, wool front</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="quote-section">
+    <blockquote data-i18n="quote_text">"The best interface is the one you stop noticing you're using."</blockquote>
+    <cite data-i18n="quote_cite">— Mia Fontaine, Soft Tech co-founder</cite>
+  </div>
+</div>
+
+<section class="section" id="blog">
+  <div class="section-head">
+    <div class="eyebrow" data-i18n="blog_eyebrow">Notes</div>
+    <h2 data-i18n="blog_h2">From the engineering desk.</h2>
+    <p data-i18n="blog_p">Short write-ups on how and why we build things the way we do.</p>
+  </div>
+  <div class="blog-grid" id="blogGrid">
+    <article class="blog-card" data-post="cloud">
+      <div class="blog-meta"><span data-i18n="post1_tag">Engineering</span><span class="sep">·</span><span>12 Jun 2026</span></div>
+      <h3 data-i18n="post1_title">Why we don't use cloud inference</h3>
+      <p data-i18n="post1_excerpt">Every Soft Tech device makes its decisions locally. Here's the latency and privacy math that led us there.</p>
+      <div class="blog-read"><span data-i18n="blog_read">Read note</span> →</div>
+    </article>
+    <article class="blog-card" data-post="dsp">
+      <div class="blog-meta"><span data-i18n="post2_tag">Hardware</span><span class="sep">·</span><span>2 May 2026</span></div>
+      <h3 data-i18n="post2_title">Inside the soft-core S2 DSP</h3>
+      <p data-i18n="post2_excerpt">A walkthrough of the chip powering Hum, and why we built a dedicated audio processor instead of reusing S1.</p>
+      <div class="blog-read"><span data-i18n="blog_read">Read note</span> →</div>
+    </article>
+    <article class="blog-card" data-post="sound">
+      <div class="blog-meta"><span data-i18n="post3_tag">Design</span><span class="sep">·</span><span>18 Apr 2026</span></div>
+      <h3 data-i18n="post3_title">Designing sound without a screen</h3>
+      <p data-i18n="post3_excerpt">How Hum's single dial replaced an entire settings menu, and what we learned about restraint.</p>
+      <div class="blog-read"><span data-i18n="blog_read">Read note</span> →</div>
+    </article>
+  </div>
+</section>
+
+<section class="section" id="queries">
+  <div class="section-head">
+    <div class="eyebrow" data-i18n="queries_eyebrow">Queries</div>
+    <h2 data-i18n="queries_h2">Questions, answered plainly.</h2>
+    <p data-i18n="queries_p">The things people ask us most, plus a direct line if yours isn't here.</p>
+  </div>
+
+  <div class="queries-panel" id="faqPanel">
+    <details class="query-item" open>
+      <summary><span><span class="q-tag mono">Q01</span><span data-i18n="faq1_q">Does any data leave the device?</span></span></summary>
+      <div class="q-body" data-i18n="faq1_a">No. Sensing and inference both run on the soft-core chip inside the device itself. Nothing is sent to a server unless you explicitly enable the optional companion app.</div>
+    </details>
+    <details class="query-item">
+      <summary><span><span class="q-tag mono">Q02</span><span data-i18n="faq2_q">What happens if power is lost?</span></span></summary>
+      <div class="q-body" data-i18n="faq2_a">Devices resume their last state automatically. There's no cloud sync to wait on, so a Soft Tech device is usable again the instant power returns.</div>
+    </details>
+    <details class="query-item">
+      <summary><span><span class="q-tag mono">Q03</span><span data-i18n="faq3_q">Can I self-host or inspect the firmware?</span></span></summary>
+      <div class="q-body" data-i18n="faq3_a">Yes. Firmware source and the on-device inference pipeline are published on our developer portal for anyone who wants to audit or extend it.</div>
+    </details>
+    <details class="query-item">
+      <summary><span><span class="q-tag mono">Q04</span><span data-i18n="faq4_q">How long is the sensor response time?</span></span></summary>
+      <div class="q-body" data-i18n="faq4_a">Typically 12 milliseconds from sensor read to output, since inference happens locally on the soft-core chip with no network round-trip.</div>
+    </details>
+    <details class="query-item">
+      <summary><span><span class="q-tag mono">Q05</span><span data-i18n="faq5_q">Do I need an app to use a Soft Tech device?</span></span></summary>
+      <div class="q-body" data-i18n="faq5_a">No app is required for any device to function. A companion app exists only for optional configuration and is never required day to day.</div>
+    </details>
+  </div>
+
+  <div class="ask-box">
+    <h3 data-i18n="ask_title">$ submit-query</h3>
+    <p data-i18n="ask_subtitle">Ask something not covered above — we read every line.</p>
+    <form class="ask-form" id="queryForm">
+      <input type="text" id="queryInput" required data-i18n-placeholder="ask_placeholder" placeholder="Type your question…">
+      <button type="submit" data-i18n="ask_button">Send</button>
+    </form>
+    <div class="query-log" id="queryLog"></div>
+  </div>
+</section>
+
+<section class="section cta-section" id="join">
+  <h2 data-i18n="cta_h2">Be first to bring calm into your space.</h2>
+  <p data-i18n="cta_p">Join the waitlist — early members get first access and founding pricing.</p>
+  <form class="waitlist-form" id="waitlistForm">
+    <input type="email" required data-i18n-placeholder="cta_placeholder" placeholder="you@example.com" aria-label="Email address">
+    <button type="submit" class="btn btn-primary" data-i18n="cta_button">Notify me</button>
+  </form>
+  <p class="form-note" id="formNote"></p>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="logo"><span class="logo-mark"></span>Soft Tech</div>
+    <ul class="footer-links">
+      <li><a href="#philosophy" data-i18n="nav_philosophy">Philosophy</a></li>
+      <li><a href="#how" data-i18n="nav_how">How it works</a></li>
+      <li><a href="#products" data-i18n="nav_products">Products</a></li>
+      <li><a href="#queries" data-i18n="nav_queries">Queries</a></li>
+    </ul>
+    <span class="footer-copy" data-i18n="footer_copy">© 2026 soft-tech · built on soft-core v2</span>
+  </div>
+</footer>
+
+<!-- Search palette -->
+<div class="modal-overlay" id="searchOverlay">
+  <div class="modal-box">
+    <div class="search-input-row">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" id="searchInput" placeholder="Search sections, specs, notes…" data-i18n-placeholder="search_placeholder">
+      <button class="modal-close" id="searchClose" aria-label="Close search">×</button>
+    </div>
+    <div class="search-results" id="searchResults"></div>
+  </div>
+</div>
+
+<!-- Blog post modal -->
+<div class="modal-overlay" id="postOverlay">
+  <div class="modal-box modal-wide">
+    <div class="modal-head">
+      <h3 id="postModalTitle" class="mono">Note</h3>
+      <button class="modal-close" id="postClose" aria-label="Close">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="post-modal-meta" id="postModalMeta"></div>
+      <div class="post-modal-body" id="postModalBody"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Product 3D visualizer modal -->
+<div class="modal-overlay" id="vizOverlay">
+  <div class="modal-box modal-viz">
+    <div class="modal-head">
+      <h3 class="mono" data-i18n="viz_modal_title">$ visualize --product</h3>
+      <button class="modal-close" id="vizClose" aria-label="Close">×</button>
+    </div>
+    <div class="modal-body" style="padding:0;">
+      <div class="viz-layout">
+        <div class="viz-stage-col">
+          <div class="viz-stage" id="vizStage">
+            <div class="viz-rotator" id="vizRotator"></div>
+          </div>
+          <div class="viz-hint mono"><span>⠿</span><span data-i18n="viz_drag_hint">Drag to rotate</span></div>
+          <button class="viz-reset" id="vizReset" data-i18n="viz_reset_btn">Reset view</button>
+        </div>
+        <div class="viz-info-col">
+          <div class="viz-info-tag" id="vizTag">Ambient light · rev 2</div>
+          <h3 id="vizTitle">Aura</h3>
+          <p id="vizDesc">A desk lamp with a light sensor and soft-core chip that tracks daylight instead of a timer.</p>
+          <div class="viz-dims" id="vizDims"></div>
+          <div class="viz-price-row">
+            <span class="vp-price" id="vizPrice">From $129</span>
+            <span class="mono" id="vizRespChip" style="font-size:0.78rem;color:var(--muted);">12ms resp.</span>
+          </div>
+          <div class="viz-cta">
+            <a href="#join" class="btn btn-primary" id="vizJoinBtn" data-i18n="cta_button">Notify me</a>
+          </div>
+          <div class="viz-switcher">
+            <button data-viz-switch="aura" class="is-active">Aura</button>
+            <button data-viz-switch="glow">Glow</button>
+            <button data-viz-switch="hum">Hum</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /.content -->
+
+<script>
+  /* ---------- Waitlist form ---------- */
+  document.getElementById('waitlistForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('formNote').textContent = "> queued: you're on the list — we'll be in touch soon.";
+    this.reset();
+  });
+
+  /* ---------- Query / FAQ submission ---------- */
+  document.getElementById('queryForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const input = document.getElementById('queryInput');
+    const val = input.value.trim();
+    if(!val) return;
+    const log = document.getElementById('queryLog');
+    const item = document.createElement('div');
+    item.className = 'query-log-item';
+    item.innerHTML = '<span class="qlabel">&gt; received:</span> "' + val.replace(/</g,'&lt;') + '" — a soft-core engineer will reply within 24h.';
+    log.prepend(item);
+    input.value = '';
+  });
+
+  /* ---------- Theme toggle ---------- */
+  const themeLightBtn = document.getElementById('themeLight');
+  const themeDarkBtn = document.getElementById('themeDark');
+  function setTheme(mode){
+    document.documentElement.setAttribute('data-theme', mode);
+    themeLightBtn.classList.toggle('is-active', mode === 'light');
+    themeDarkBtn.classList.toggle('is-active', mode === 'dark');
+  }
+  themeLightBtn.addEventListener('click', () => setTheme('light'));
+  themeDarkBtn.addEventListener('click', () => setTheme('dark'));
+
+  /* ---------- Mobile nav ---------- */
+  const mobileNav = document.getElementById('mobileNav');
+  const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+  function openMobileNav(){ mobileNav.classList.add('open'); }
+  function closeMobileNav(){ mobileNav.classList.remove('open'); }
+  mobileMenuToggle.addEventListener('click', () => mobileNav.classList.contains('open') ? closeMobileNav() : openMobileNav());
+  document.querySelectorAll('.mobile-nav a').forEach(a => a.addEventListener('click', closeMobileNav));
+
+  /* ---------- Desktop nav dropdowns ---------- */
+  function wireDropdown(id){
+    const dropdown = document.getElementById(id);
+    const toggle = dropdown.querySelector('.nav-dropdown-toggle');
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const wasOpen = dropdown.classList.contains('open');
+      document.querySelectorAll('.nav-dropdown.open').forEach(d => d.classList.remove('open'));
+      dropdown.classList.toggle('open', !wasOpen);
+    });
+    dropdown.querySelectorAll('.nav-dropdown-menu a').forEach(a => a.addEventListener('click', () => dropdown.classList.remove('open')));
+    return dropdown;
+  }
+  const homeDropdown = wireDropdown('homeDropdown');
+  const productsDropdown = wireDropdown('productsDropdown');
+  document.addEventListener('click', (e) => {
+    if(!homeDropdown.contains(e.target)) homeDropdown.classList.remove('open');
+    if(!productsDropdown.contains(e.target)) productsDropdown.classList.remove('open');
+  });
+
+  /* ---------- Mobile nav accordions ---------- */
+  function wireAccordion(id){
+    const group = document.getElementById(id);
+    const toggle = group.querySelector('.mobile-nav-toggle');
+    toggle.addEventListener('click', () => group.classList.toggle('open'));
+  }
+  wireAccordion('mobileHomeGroup');
+  wireAccordion('mobileProductsGroup');
+
+  /* ---------- Active section highlight ---------- */
+  const navLinks = document.querySelectorAll('.topnav [data-section], .mobile-nav [data-section]');
+  const sectionGroup = { philosophy:'home', how:'home', products:'products', compare:'products', specs:'products' };
+  const sections = ['home','philosophy','how','products','compare','specs','blog','queries','join'].map(id => document.getElementById(id)).filter(Boolean);
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const activeId = entry.target.id;
+        navLinks.forEach(a => {
+          const sec = a.getAttribute('data-section');
+          const isGroupToggle = a.classList.contains('nav-dropdown-toggle') || a.classList.contains('mobile-nav-toggle');
+          const matches = isGroupToggle ? (sectionGroup[activeId] || activeId) === sec : sec === activeId;
+          a.classList.toggle('active', matches);
+        });
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+  sections.forEach(s => observer.observe(s));
+
+  /* ---------- Specs tabs ---------- */
+  document.querySelectorAll('.specs-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.specs-tab').forEach(t => t.classList.remove('is-active'));
+      document.querySelectorAll('.specs-panel').forEach(p => p.classList.remove('is-active'));
+      tab.classList.add('is-active');
+      document.getElementById('specs-' + tab.getAttribute('data-specs')).classList.add('is-active');
+    });
+  });
+
+  /* ---------- Generic modal helpers ---------- */
+  function openModal(overlay){ overlay.classList.add('open'); }
+  function closeModal(overlay){ overlay.classList.remove('open'); }
+  document.querySelectorAll('.modal-overlay').forEach(ov => {
+    ov.addEventListener('click', (e) => { if(e.target === ov) closeModal(ov); });
+  });
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(closeModal);
+  });
+
+  /* ---------- Search palette ---------- */
+  const searchOverlay = document.getElementById('searchOverlay');
+  const searchInput = document.getElementById('searchInput');
+  const searchResults = document.getElementById('searchResults');
+  const searchIndex = [
+    { title:'Home', tag:'section', target:'#home' },
+    { title:'Philosophy', tag:'section', target:'#philosophy' },
+    { title:'How it works', tag:'section', target:'#how' },
+    { title:'Products', tag:'section', target:'#products' },
+    { title:'Compare products', tag:'section', target:'#compare' },
+    { title:'Specifications', tag:'section', target:'#specs' },
+    { title:'Blog / notes', tag:'section', target:'#blog' },
+    { title:'Queries', tag:'section', target:'#queries' },
+    { title:'Join the waitlist', tag:'section', target:'#join' },
+    { title:'Aura — ambient light', tag:'product', target:'#products' },
+    { title:'Glow — focus companion', tag:'product', target:'#products' },
+    { title:'Hum — sound object', tag:'product', target:'#products' },
+    { title:'Does any data leave the device?', tag:'faq', target:'#queries' },
+    { title:'What happens if power is lost?', tag:'faq', target:'#queries' },
+    { title:'Can I self-host or inspect the firmware?', tag:'faq', target:'#queries' },
+    { title:'How long is the sensor response time?', tag:'faq', target:'#queries' },
+    { title:'Do I need an app to use a Soft Tech device?', tag:'faq', target:'#queries' },
+    { title:'Why we don\'t use cloud inference', tag:'blog', target:'#blog' },
+    { title:'Inside the soft-core S2 DSP', tag:'blog', target:'#blog' },
+    { title:'Designing sound without a screen', tag:'blog', target:'#blog' }
+  ];
+  function renderResults(query){
+    const q = query.trim().toLowerCase();
+    const matches = q ? searchIndex.filter(i => i.title.toLowerCase().includes(q)) : searchIndex;
+    searchResults.innerHTML = '';
+    if(matches.length === 0){
+      searchResults.innerHTML = '<div class="search-empty">No results</div>';
+      return;
+    }
+    matches.slice(0, 12).forEach(m => {
+      const a = document.createElement('a');
+      a.href = m.target; a.className = 'search-result';
+      a.innerHTML = '<span>' + m.title + '</span><span class="sr-tag mono">' + m.tag + '</span>';
+      a.addEventListener('click', () => closeModal(searchOverlay));
+      searchResults.appendChild(a);
+    });
+  }
+  document.getElementById('searchTrigger').addEventListener('click', () => {
+    openModal(searchOverlay); searchInput.value=''; renderResults(''); setTimeout(()=>searchInput.focus(), 50);
+  });
+  document.getElementById('searchClose').addEventListener('click', () => closeModal(searchOverlay));
+  searchInput.addEventListener('input', (e) => renderResults(e.target.value));
+  document.addEventListener('keydown', (e) => {
+    if((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k'){
+      e.preventDefault(); openModal(searchOverlay); searchInput.value=''; renderResults(''); setTimeout(()=>searchInput.focus(), 50);
+    }
+  });
+
+
+
+  /* ---------- Blog post modal ---------- */
+  const postOverlay = document.getElementById('postOverlay');
+  const postContent = {
+    cloud: {
+      tagKey:'post1_tag', dateKey:null, date:'12 Jun 2026', titleKey:'post1_title',
+      bodyKey:'post1_body'
+    },
+    dsp: {
+      tagKey:'post2_tag', date:'2 May 2026', titleKey:'post2_title', bodyKey:'post2_body'
+    },
+    sound: {
+      tagKey:'post3_tag', date:'18 Apr 2026', titleKey:'post3_title', bodyKey:'post3_body'
+    }
+  };
+  document.querySelectorAll('.blog-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const key = card.getAttribute('data-post');
+      const dict = translations[currentLang] || translations.en;
+      const post = postContent[key];
+      document.getElementById('postModalTitle').textContent = dict[post.titleKey] || translations.en[post.titleKey];
+      document.getElementById('postModalMeta').textContent = (dict[post.tagKey] || translations.en[post.tagKey]) + ' · ' + post.date;
+      const body = dict[post.bodyKey] || translations.en[post.bodyKey] || '';
+      document.getElementById('postModalBody').innerHTML = body.split('\n\n').map(p => '<p>'+p+'</p>').join('');
+      openModal(postOverlay);
+    });
+  });
+  document.getElementById('postClose').addEventListener('click', () => closeModal(postOverlay));
+
+  /* ---------- Product 3D visualizer ---------- */
+  const vizOverlay = document.getElementById('vizOverlay');
+  const vizStage = document.getElementById('vizStage');
+  const vizRotator = document.getElementById('vizRotator');
+  const vizTag = document.getElementById('vizTag');
+  const vizTitle = document.getElementById('vizTitle');
+  const vizDesc = document.getElementById('vizDesc');
+  const vizDims = document.getElementById('vizDims');
+  const vizPrice = document.getElementById('vizPrice');
+  const vizRespChip = document.getElementById('vizRespChip');
+
+  const PXPERMM = 1.25; // scale factor: real mm -> stage px, keeps relative proportions across products
+
+  const vizData = {
+    aura: {
+      dimsMM: { w:180, h:90, d:90 }, resp:'12ms resp.',
+      colors: ['#C9DACB', '#6C8B72'], // gradient for faces
+      titleKey:'product1_h3', tagKey:'product1_tag', descKey:'product1_p', priceKey:'product1_price'
+    },
+    glow: {
+      dimsMM: { w:70, h:70, d:40 }, resp:'15ms resp.',
+      colors: ['#F3D2CC', '#D98F86'],
+      titleKey:'product2_h3', tagKey:'product2_tag', descKey:'product2_p', priceKey:'product2_price'
+    },
+    hum: {
+      dimsMM: { w:140, h:140, d:160 }, resp:'8ms resp.',
+      colors: ['#CFE0EC', '#6E93AF'],
+      titleKey:'product3_h3', tagKey:'product3_tag', descKey:'product3_p', priceKey:'product3_price'
+    }
+  };
+
+  let vizCurrent = 'aura';
+  let vizRotX = -18, vizRotY = 28;
+  let vizDragging = false, vizLastX = 0, vizLastY = 0;
+  let vizAutoRotate = true;
+  let vizRAF = null;
+
+  function buildVizFaces(id){
+    const data = vizData[id];
+    const w = data.dimsMM.w * PXPERMM;
+    const h = data.dimsMM.h * PXPERMM;
+    const d = data.dimsMM.d * PXPERMM;
+    const [c1, c2] = data.colors;
+    const dict = translations[currentLang] || translations.en;
+    const name = dict[data.titleKey] || translations.en[data.titleKey];
+    const tag = dict[data.tagKey] || translations.en[data.tagKey];
+
+    vizRotator.style.width = w + 'px';
+    vizRotator.style.height = h + 'px';
+
+    const faceBase = 'linear-gradient(150deg,' + c1 + ',' + c2 + ')';
+    const faceDark = 'linear-gradient(150deg, color-mix(in srgb,' + c1 + ' 75%, black), color-mix(in srgb,' + c2 + ' 75%, black))';
+    const faceLight = 'linear-gradient(150deg, color-mix(in srgb,' + c1 + ' 90%, white), ' + c1 + ')';
+
+    vizRotator.innerHTML = `
+      <div class="viz-face viz-face-front" style="width:${w}px;height:${h}px;background:${faceBase};transform:translate(-50%,-50%) translateZ(${d/2}px);">
+        <div class="vf-name">${name}</div>
+        <div class="vf-tag">${tag}</div>
+      </div>
+      <div class="viz-face" style="width:${w}px;height:${h}px;background:${faceDark};transform:translate(-50%,-50%) rotateY(180deg) translateZ(${d/2}px);"></div>
+      <div class="viz-face" style="width:${d}px;height:${h}px;background:${faceDark};transform:translate(-50%,-50%) rotateY(90deg) translateZ(${w/2}px);"></div>
+      <div class="viz-face" style="width:${d}px;height:${h}px;background:${faceDark};transform:translate(-50%,-50%) rotateY(-90deg) translateZ(${w/2}px);"></div>
+      <div class="viz-face" style="width:${w}px;height:${d}px;background:${faceLight};transform:translate(-50%,-50%) rotateX(90deg) translateZ(${h/2}px);"></div>
+      <div class="viz-face" style="width:${w}px;height:${d}px;background:${faceDark};transform:translate(-50%,-50%) rotateX(-90deg) translateZ(${h/2}px);"></div>
+    `;
+  }
+
+  function applyVizRotation(){
+    vizRotX = Math.max(-70, Math.min(70, vizRotX));
+    vizRotator.style.transform = `rotateX(${vizRotX}deg) rotateY(${vizRotY}deg)`;
+  }
+
+  function vizIdleSpin(){
+    if(!vizDragging && vizAutoRotate && vizOverlay.classList.contains('open')){
+      vizRotY += 0.25;
+      applyVizRotation();
+    }
+    vizRAF = requestAnimationFrame(vizIdleSpin);
+  }
+
+  function fillVizInfo(id){
+    const data = vizData[id];
+    const dict = translations[currentLang] || translations.en;
+    vizTag.textContent = dict[data.tagKey] || translations.en[data.tagKey];
+    vizTitle.textContent = dict[data.titleKey] || translations.en[data.titleKey];
+    vizDesc.textContent = dict[data.descKey] || translations.en[data.descKey];
+    vizPrice.textContent = dict[data.priceKey] || translations.en[data.priceKey];
+    vizRespChip.textContent = data.resp;
+    const dimLabels = [
+      { num: data.dimsMM.w + 'mm', label: (translations.en.viz_dim_w || 'Width') },
+      { num: data.dimsMM.h + 'mm', label: (translations.en.viz_dim_h || 'Height') },
+      { num: data.dimsMM.d + 'mm', label: (translations.en.viz_dim_d || 'Depth') }
+    ];
+    vizDims.innerHTML = dimLabels.map(d => `<div><span class="vd-num">${d.num}</span><span class="vd-label">${d.label}</span></div>`).join('');
+    document.querySelectorAll('.viz-switcher button').forEach(b => {
+      b.classList.toggle('is-active', b.getAttribute('data-viz-switch') === id);
+    });
+  }
+
+  function openVizFor(id){
+    vizCurrent = id;
+    vizRotX = -18; vizRotY = 28;
+    buildVizFaces(id);
+    applyVizRotation();
+    fillVizInfo(id);
+    openModal(vizOverlay);
+    if(!vizRAF) vizIdleSpin();
+  }
+
+  document.querySelectorAll('.product-card[data-product]').forEach(card => {
+    card.addEventListener('click', () => openVizFor(card.getAttribute('data-product')));
+  });
+
+  document.querySelectorAll('.viz-switcher button').forEach(btn => {
+    btn.addEventListener('click', () => openVizFor(btn.getAttribute('data-viz-switch')));
+  });
+
+  document.getElementById('vizClose').addEventListener('click', () => closeModal(vizOverlay));
+  document.getElementById('vizReset').addEventListener('click', () => {
+    vizRotX = -18; vizRotY = 28; applyVizRotation();
+  });
+
+  function vizPointerDown(x, y){
+    vizDragging = true;
+    vizAutoRotate = false;
+    vizLastX = x; vizLastY = y;
+    vizStage.classList.add('is-dragging');
+  }
+  function vizPointerMove(x, y){
+    if(!vizDragging) return;
+    const dx = x - vizLastX;
+    const dy = y - vizLastY;
+    vizRotY += dx * 0.4;
+    vizRotX -= dy * 0.4;
+    applyVizRotation();
+    vizLastX = x; vizLastY = y;
+  }
+  function vizPointerUp(){
+    vizDragging = false;
+    vizStage.classList.remove('is-dragging');
+    setTimeout(() => { vizAutoRotate = true; }, 2200);
+  }
+
+  vizStage.addEventListener('pointerdown', (e) => { vizStage.setPointerCapture(e.pointerId); vizPointerDown(e.clientX, e.clientY); });
+  vizStage.addEventListener('pointermove', (e) => vizPointerMove(e.clientX, e.clientY));
+  vizStage.addEventListener('pointerup', vizPointerUp);
+  vizStage.addEventListener('pointercancel', vizPointerUp);
+  vizStage.addEventListener('pointerleave', () => { if(vizDragging) vizPointerUp(); });
+
+  /* ---------- Translations ---------- */
+  const translations = {
+    en: {
+      nav_home:"Home", nav_philosophy:"Philosophy", nav_how:"How it works", nav_products:"Products", nav_products_group:"About Products", nav_queries:"Queries", nav_join:"Join",
+      ctrl_theme:"Theme", ctrl_lang:"Language", theme_light:"Light", theme_dark:"Dark",
+      status_chip:"system calm", btn_join:"Join the waitlist", btn_how:"See how it works",
+      hero_eyebrow:"Calm computing, made real",
+      hero_h1:'Technology that <em>breathes</em> with you, not at you.',
+      hero_p:'Soft Tech builds ambient sensors and a low-power edge processor — the "soft-core" — that read a room and respond in light, warmth, and sound instead of screens and alerts.',
+      meta1_label:"sensor response", meta2_label:"battery on one charge", meta3_label:"apps required",
+      orb_label:"soft-core · idle",
+      philosophy_eyebrow:"Philosophy", philosophy_h2:"Real hardware, three quiet rules.", philosophy_p:"Every sensor, chip, and material we choose is measured against the same three ideas.",
+      principle1_title:"Quiet", principle1_p:"No push notifications. Devices signal through light and gentle motion, processed entirely on-device.",
+      principle2_title:"Warm", principle2_p:"Custom silicon, wrapped in soft materials and rounded resistance instead of cold glass and hard clicks.",
+      principle3_title:"Present", principle3_p:"Each processor runs one task well, then drops to microwatt idle — nothing to configure daily.",
+      how_eyebrow:"How it works", how_h2:"Sense, process, respond — entirely on-device.", how_p:"No cloud round-trip. The soft-core reads its environment and reacts locally, in under 15 milliseconds.",
+      step1_title:"Ambient sensors", step1_p:"Light, sound, motion, and proximity sampled continuously at microwatt power draw.",
+      step2_title:"Soft-core chip", step2_p:"A dedicated low-power processor interprets patterns on-device — nothing leaves the room.",
+      step3_title:"Ambient output", step3_p:"Light shifts, sound softens, or nothing happens at all — the correct response, most of the time.",
+      products_eyebrow:"Products", products_h2:"A small, deliberate lineup.", products_p:"We'd rather ship three devices well than ten loudly. Each runs its own soft-core chip.",
+      product1_tag:"Ambient light · rev 2", product1_h3:"Aura", product1_p:"A desk lamp with a light sensor and soft-core chip that tracks daylight instead of a timer.", product1_price:"From $129",
+      product2_tag:"Focus companion · rev 1", product2_h3:"Glow", product2_p:"A biofeedback light with an on-board breath sensor that syncs its pulse to yours in real time.", product2_price:"From $89",
+      product3_tag:"Sound object · rev 3", product3_h3:"Hum", product3_p:"A speaker with a single dial and a DSP tuned by hand — no app, no equalizer to manage.", product3_price:"From $159",
+      viz_hint:"Click to visualize in 3D",
+      viz_modal_title:"$ visualize --product",
+      viz_drag_hint:"Drag to rotate · auto-spins when idle",
+      viz_reset_btn:"Reset view",
+      viz_dim_w:"Width", viz_dim_h:"Height", viz_dim_d:"Depth",
+      quote_text:'"The best interface is the one you stop noticing you\'re using."', quote_cite:"— Mia Fontaine, Soft Tech co-founder",
+      queries_eyebrow:"Queries", queries_h2:"Questions, answered plainly.", queries_p:"The things people ask us most, plus a direct line if yours isn't here.",
+      faq1_q:"Does any data leave the device?", faq1_a:"No. Sensing and inference both run on the soft-core chip inside the device itself. Nothing is sent to a server unless you explicitly enable the optional companion app.",
+      faq2_q:"What happens if power is lost?", faq2_a:"Devices resume their last state automatically. There's no cloud sync to wait on, so a Soft Tech device is usable again the instant power returns.",
+      faq3_q:"Can I self-host or inspect the firmware?", faq3_a:"Yes. Firmware source and the on-device inference pipeline are published on our developer portal for anyone who wants to audit or extend it.",
+      faq4_q:"How long is the sensor response time?", faq4_a:"Typically 12 milliseconds from sensor read to output, since inference happens locally on the soft-core chip with no network round-trip.",
+      faq5_q:"Do I need an app to use a Soft Tech device?", faq5_a:"No app is required for any device to function. A companion app exists only for optional configuration and is never required day to day.",
+      ask_title:"$ submit-query", ask_subtitle:"Ask something not covered above — we read every line.", ask_placeholder:"Type your question…", ask_button:"Send",
+      cta_h2:"Be first to bring calm into your space.", cta_p:"Join the waitlist — early members get first access and founding pricing.", cta_placeholder:"you@example.com", cta_button:"Notify me",
+      footer_copy:"© 2026 soft-tech · built on soft-core v2",
+
+      nav_compare:"Compare", nav_specs:"Specs", nav_blog:"Blog", nav_login:"Log in", nav_signup:"Sign up",
+      search_placeholder:"Search sections, specs, notes…",
+      auth_title:"Account", auth_password:"Password", auth_name:"Name",
+
+      compare_eyebrow:"Compare", compare_h2:"Same principles, different jobs.", compare_p:"Every device runs a soft-core chip — here's how the three stack up side by side.",
+      compare_col_feature:"Feature", compare_row_price:"Price", compare_row_best:"Best for", compare_row_response:"Response time",
+      compare_row_power:"Power", compare_row_sensors:"Sensors", compare_row_app:"App required",
+      compare_aura_best:"Desk lighting", compare_glow_best:"Focus & breathing", compare_hum_best:"Ambient sound",
+      compare_aura_power:"USB-C, 4.5W", compare_glow_power:"30-day battery", compare_hum_power:"USB-C, 8W",
+      compare_aura_sensors:"Ambient light", compare_glow_sensors:"Breath + light", compare_hum_sensors:"—", compare_no:"No",
+
+      specs_eyebrow:"Specifications", specs_h2:"Full spec sheet, per device.", specs_p:"Everything under the hood — chip, sensors, materials, and power.",
+      specs_chip:"Chip", specs_sensors:"Sensors", specs_connectivity:"Connectivity", specs_power:"Power",
+      specs_dimensions:"Dimensions", specs_weight:"Weight", specs_response:"Response time", specs_materials:"Materials",
+      specs_aura_sensors:"Ambient light, 10–100,000 lux", specs_aura_materials:"Recycled aluminum, soft-touch silicone",
+      specs_glow_sensors:"Capacitive breath sensor, ambient light", specs_glow_power:"Li-ion, 30-day battery", specs_glow_materials:"Soft-touch silicone shell",
+      specs_hum_sensors:"None — audio only", specs_hum_response:"8 ms audio latency", specs_hum_materials:"Powder-coated steel, wool front",
+
+      blog_eyebrow:"Notes", blog_h2:"From the engineering desk.", blog_p:"Short write-ups on how and why we build things the way we do.", blog_read:"Read note",
+      post1_tag:"Engineering", post1_title:"Why we don't use cloud inference",
+      post1_excerpt:"Every Soft Tech device makes its decisions locally. Here's the latency and privacy math that led us there.",
+      post1_body:"Every decision a Soft Tech device makes — dimming a light, softening a speaker, waking a sensor — happens on the device itself, on the soft-core chip. No round trip to a server, no dependency on your Wi-Fi being up.\n\nWe measured it early on: a cloud round trip for a simple ambient response averaged well over 200ms, even on a fast connection. On-device inference on the soft-core chip runs that same decision in about 12ms. For something meant to feel ambient and immediate, that gap is the difference between a device that feels alive and one that feels like it's thinking about it.\n\nThere's a privacy upside too, though it wasn't the only reason. Ambient sensors pick up a lot about a room and the people in it. Keeping that processing local means there's simply nothing to intercept, log, or leak in transit — the data never leaves the room it was collected in.",
+      post2_tag:"Hardware", post2_title:"Inside the soft-core S2 DSP",
+      post2_excerpt:"A walkthrough of the chip powering Hum, and why we built a dedicated audio processor instead of reusing S1.",
+      post2_body:"S1, the chip inside Aura and Glow, is built for infrequent, low-bandwidth signals — light levels, breath cycles, proximity. Audio is a different problem entirely: continuous, high-bandwidth, and far less forgiving of latency, which is why Hum needed its own silicon.\n\nS2 is a dedicated DSP tuned specifically for real-time audio shaping. It handles the single-dial EQ curve, dynamic range control, and the speaker's own acoustic correction in one pass, with under 8ms of added latency end to end.\n\nThe trade-off is that S2 is a one-trick chip — it doesn't do the ambient sensing S1 handles. We were fine with that. A soft-core chip that does one job very well fits the whole philosophy better than one that does five jobs adequately.",
+      post3_tag:"Design", post3_title:"Designing sound without a screen",
+      post3_excerpt:"How Hum's single dial replaced an entire settings menu, and what we learned about restraint.",
+      post3_body:"Early prototypes of Hum had a companion app with a full equalizer, presets, and room correction settings. Almost nobody used more than two of those settings, and the ones who did used them once and never touched them again.\n\nWe replaced all of it with a single physical dial. Turn it one way for warmer, room-filling sound; the other way for tighter, more direct sound. The DSP handles everything else automatically, listening to the room and adjusting quietly in the background.\n\nIt was a hard cut to make — a single dial feels like it's throwing away control. In practice, it removed a decision nobody wanted to make in the first place, which is really what 'no app required' has meant for us across every device.",
+
+      formNote_success:"> queued: you're on the list — we'll be in touch soon."
+    },
+    es: {
+      nav_home:"Inicio", nav_philosophy:"Filosofía", nav_how:"Cómo funciona", nav_products:"Productos", nav_products_group:"Sobre los productos", nav_queries:"Consultas", nav_join:"Unirse",
+      ctrl_theme:"Tema", ctrl_lang:"Idioma", theme_light:"Claro", theme_dark:"Oscuro",
+      status_chip:"sistema en calma", btn_join:"Unirse a la lista", btn_how:"Ver cómo funciona",
+      hero_eyebrow:"Computación tranquila, hecha realidad",
+      hero_h1:'Tecnología que <em>respira</em> contigo, no sobre ti.',
+      hero_p:'Soft Tech crea sensores ambientales y un procesador de baja potencia — el "soft-core" — que leen una habitación y responden con luz, calidez y sonido en lugar de pantallas y alertas.',
+      meta1_label:"respuesta del sensor", meta2_label:"batería con una carga", meta3_label:"apps necesarias",
+      orb_label:"soft-core · inactivo",
+      philosophy_eyebrow:"Filosofía", philosophy_h2:"Hardware real, tres reglas silenciosas.", philosophy_p:"Cada sensor, chip y material que elegimos se mide contra las mismas tres ideas.",
+      principle1_title:"Silencioso", principle1_p:"Sin notificaciones push. Los dispositivos se comunican con luz y movimiento suave, procesados por completo en el dispositivo.",
+      principle2_title:"Cálido", principle2_p:"Silicio a medida, envuelto en materiales suaves y resistencia redondeada en lugar de vidrio frío y clics duros.",
+      principle3_title:"Presente", principle3_p:"Cada procesador realiza una tarea bien y luego pasa a reposo de microvatios — nada que configurar a diario.",
+      how_eyebrow:"Cómo funciona", how_h2:"Percibe, procesa, responde — todo en el dispositivo.", how_p:"Sin ida y vuelta a la nube. El soft-core lee su entorno y reacciona localmente en menos de 15 milisegundos.",
+      step1_title:"Sensores ambientales", step1_p:"Luz, sonido, movimiento y proximidad muestreados continuamente con un consumo de microvatios.",
+      step2_title:"Chip soft-core", step2_p:"Un procesador dedicado de baja potencia interpreta patrones en el dispositivo — nada sale de la habitación.",
+      step3_title:"Salida ambiental", step3_p:"La luz cambia, el sonido se suaviza, o no pasa nada — la respuesta correcta, la mayoría de las veces.",
+      products_eyebrow:"Productos", products_h2:"Una gama pequeña y deliberada.", products_p:"Preferimos lanzar bien tres dispositivos que diez a lo loco. Cada uno con su propio chip soft-core.",
+      product1_tag:"Luz ambiental · rev 2", product1_h3:"Aura", product1_p:"Una lámpara de escritorio con sensor de luz y chip soft-core que sigue la luz del día en vez de un temporizador.", product1_price:"Desde $129",
+      product2_tag:"Compañero de enfoque · rev 1", product2_h3:"Glow", product2_p:"Una luz de biorretroalimentación con sensor de respiración que sincroniza su pulso con el tuyo en tiempo real.", product2_price:"Desde $89",
+      product3_tag:"Objeto sonoro · rev 3", product3_h3:"Hum", product3_p:"Un altavoz con un solo dial y un DSP ajustado a mano — sin app, sin ecualizador que gestionar.", product3_price:"Desde $159",
+      viz_hint:"Clic para visualizar en 3D",
+      viz_modal_title:"$ visualizar --producto",
+      viz_drag_hint:"Arrastra para rotar · gira solo al estar inactivo",
+      viz_reset_btn:"Restablecer vista",
+      viz_dim_w:"Ancho", viz_dim_h:"Alto", viz_dim_d:"Fondo",
+      quote_text:'"La mejor interfaz es la que dejas de notar que estás usando."', quote_cite:"— Mia Fontaine, cofundadora de Soft Tech",
+      queries_eyebrow:"Consultas", queries_h2:"Preguntas, respondidas con claridad.", queries_p:"Lo que más nos preguntan, más una línea directa si la tuya no está aquí.",
+      faq1_q:"¿Sale algún dato del dispositivo?", faq1_a:"No. La detección y la inferencia se ejecutan en el chip soft-core dentro del propio dispositivo. Nada se envía a un servidor salvo que actives la app complementaria opcional.",
+      faq2_q:"¿Qué pasa si se pierde la energía?", faq2_a:"Los dispositivos retoman su último estado automáticamente. No hay sincronización en la nube que esperar, así que el dispositivo vuelve a estar listo al instante.",
+      faq3_q:"¿Puedo auto-alojar o inspeccionar el firmware?", faq3_a:"Sí. El código del firmware y el flujo de inferencia en el dispositivo están publicados en nuestro portal de desarrolladores para quien quiera auditarlo o ampliarlo.",
+      faq4_q:"¿Cuál es el tiempo de respuesta del sensor?", faq4_a:"Normalmente 12 milisegundos desde la lectura del sensor hasta la salida, ya que la inferencia ocurre localmente en el chip soft-core sin ida y vuelta a la red.",
+      faq5_q:"¿Necesito una app para usar un dispositivo Soft Tech?", faq5_a:"No se necesita ninguna app para que un dispositivo funcione. La app complementaria existe solo para configuración opcional y nunca es obligatoria en el día a día.",
+      ask_title:"$ enviar-consulta", ask_subtitle:"Pregunta algo que no esté arriba — leemos cada línea.", ask_placeholder:"Escribe tu pregunta…", ask_button:"Enviar",
+      cta_h2:"Sé el primero en traer calma a tu espacio.", cta_p:"Únete a la lista de espera — los primeros miembros obtienen acceso anticipado y precio fundacional.", cta_placeholder:"tu@ejemplo.com", cta_button:"Avísame",
+      footer_copy:"© 2026 soft-tech · construido sobre soft-core v2"
+    },
+    fr: {
+      nav_home:"Accueil", nav_philosophy:"Philosophie", nav_how:"Fonctionnement", nav_products:"Produits", nav_products_group:"À propos des produits", nav_queries:"Questions", nav_join:"Rejoindre",
+      ctrl_theme:"Thème", ctrl_lang:"Langue", theme_light:"Clair", theme_dark:"Sombre",
+      status_chip:"système calme", btn_join:"Rejoindre la liste", btn_how:"Voir le fonctionnement",
+      hero_eyebrow:"L'informatique apaisée, en vrai",
+      hero_h1:'Une technologie qui <em>respire</em> avec vous, pas sur vous.',
+      hero_p:'Soft Tech conçoit des capteurs ambiants et un processeur basse consommation — le « soft-core » — qui lisent une pièce et répondent par la lumière, la chaleur et le son plutôt que par des écrans et des alertes.',
+      meta1_label:"réponse du capteur", meta2_label:"autonomie sur une charge", meta3_label:"application requise",
+      orb_label:"soft-core · au repos",
+      philosophy_eyebrow:"Philosophie", philosophy_h2:"Du vrai matériel, trois règles discrètes.", philosophy_p:"Chaque capteur, puce et matériau que nous choisissons est jugé selon ces trois mêmes idées.",
+      principle1_title:"Discret", principle1_p:"Aucune notification push. Les appareils communiquent par la lumière et un mouvement doux, traités entièrement sur l'appareil.",
+      principle2_title:"Chaleureux", principle2_p:"Silicium sur mesure, enveloppé de matériaux doux et d'une résistance arrondie plutôt que du verre froid et des clics durs.",
+      principle3_title:"Présent", principle3_p:"Chaque processeur exécute une tâche puis retombe en veille au micro-watt — rien à configurer au quotidien.",
+      how_eyebrow:"Fonctionnement", how_h2:"Percevoir, traiter, répondre — entièrement sur l'appareil.", how_p:"Sans aller-retour vers le cloud. Le soft-core lit son environnement et réagit localement, en moins de 15 millisecondes.",
+      step1_title:"Capteurs ambiants", step1_p:"Lumière, son, mouvement et proximité échantillonnés en continu à une consommation infime.",
+      step2_title:"Puce soft-core", step2_p:"Un processeur dédié basse consommation interprète les schémas sur l'appareil — rien ne quitte la pièce.",
+      step3_title:"Sortie ambiante", step3_p:"La lumière change, le son s'adoucit, ou rien ne se passe — la bonne réponse, la plupart du temps.",
+      products_eyebrow:"Produits", products_h2:"Une gamme restreinte et réfléchie.", products_p:"Nous préférons bien lancer trois appareils plutôt que dix à la va-vite. Chacun avec sa propre puce soft-core.",
+      product1_tag:"Lumière ambiante · rev 2", product1_h3:"Aura", product1_p:"Une lampe de bureau avec capteur de lumière et puce soft-core qui suit la lumière du jour plutôt qu'une minuterie.", product1_price:"Dès 129 $",
+      product2_tag:"Compagnon de concentration · rev 1", product2_h3:"Glow", product2_p:"Une lumière à biofeedback avec capteur de respiration qui synchronise son pouls au vôtre en temps réel.", product2_price:"Dès 89 $",
+      product3_tag:"Objet sonore · rev 3", product3_h3:"Hum", product3_p:"Une enceinte avec une seule molette et un DSP réglé à la main — pas d'appli, pas d'égaliseur à gérer.", product3_price:"Dès 159 $",
+      viz_hint:"Cliquer pour visualiser en 3D",
+      viz_modal_title:"$ visualiser --produit",
+      viz_drag_hint:"Glissez pour faire pivoter · tourne seul au repos",
+      viz_reset_btn:"Réinitialiser la vue",
+      viz_dim_w:"Largeur", viz_dim_h:"Hauteur", viz_dim_d:"Profondeur",
+      quote_text:'« La meilleure interface est celle qu\'on cesse de remarquer. »', quote_cite:"— Mia Fontaine, cofondatrice de Soft Tech",
+      queries_eyebrow:"Questions", queries_h2:"Des questions, des réponses claires.", queries_p:"Ce qu'on nous demande le plus, et une ligne directe si la vôtre manque.",
+      faq1_q:"Des données quittent-elles l'appareil ?", faq1_a:"Non. La détection et l'inférence s'exécutent toutes deux sur la puce soft-core, dans l'appareil. Rien n'est envoyé à un serveur sauf si vous activez l'application compagnon facultative.",
+      faq2_q:"Que se passe-t-il en cas de coupure de courant ?", faq2_a:"Les appareils reprennent automatiquement leur dernier état. Il n'y a aucune synchronisation cloud à attendre, l'appareil est donc utilisable dès le retour du courant.",
+      faq3_q:"Puis-je auto-héberger ou inspecter le firmware ?", faq3_a:"Oui. Le code source du firmware et le pipeline d'inférence embarqué sont publiés sur notre portail développeur pour qui souhaite l'auditer ou l'étendre.",
+      faq4_q:"Quel est le temps de réponse du capteur ?", faq4_a:"Généralement 12 millisecondes entre la lecture du capteur et la sortie, l'inférence se faisant localement sur la puce soft-core sans aller-retour réseau.",
+      faq5_q:"Ai-je besoin d'une appli pour utiliser un appareil Soft Tech ?", faq5_a:"Aucune appli n'est requise pour qu'un appareil fonctionne. L'appli compagnon sert uniquement à une configuration facultative et n'est jamais nécessaire au quotidien.",
+      ask_title:"$ envoyer-question", ask_subtitle:"Posez une question non couverte ci-dessus — nous lisons tout.", ask_placeholder:"Écrivez votre question…", ask_button:"Envoyer",
+      cta_h2:"Soyez les premiers à apporter le calme chez vous.", cta_p:"Rejoignez la liste d'attente — les premiers membres ont un accès anticipé et un tarif fondateur.", cta_placeholder:"vous@exemple.com", cta_button:"Me prévenir",
+      footer_copy:"© 2026 soft-tech · construit sur soft-core v2"
+    },
+    de: {
+      nav_home:"Start", nav_philosophy:"Philosophie", nav_how:"Funktionsweise", nav_products:"Produkte", nav_products_group:"Über die Produkte", nav_queries:"Fragen", nav_join:"Beitreten",
+      ctrl_theme:"Design", ctrl_lang:"Sprache", theme_light:"Hell", theme_dark:"Dunkel",
+      status_chip:"System ruhig", btn_join:"Warteliste beitreten", btn_how:"Funktionsweise ansehen",
+      hero_eyebrow:"Ruhige Technik, wirklich umgesetzt",
+      hero_h1:'Technik, die mit dir <em>atmet</em>, nicht auf dich einredet.',
+      hero_p:'Soft Tech baut Umgebungssensoren und einen stromsparenden Edge-Prozessor — den „soft-core" —, der einen Raum liest und mit Licht, Wärme und Klang statt Bildschirmen und Alarmen reagiert.',
+      meta1_label:"Sensorreaktion", meta2_label:"Akkulaufzeit pro Ladung", meta3_label:"benötigte Apps",
+      orb_label:"soft-core · im Leerlauf",
+      philosophy_eyebrow:"Philosophie", philosophy_h2:"Echte Hardware, drei stille Regeln.", philosophy_p:"Jeder Sensor, Chip und jedes Material wird an denselben drei Ideen gemessen.",
+      principle1_title:"Ruhig", principle1_p:"Keine Push-Benachrichtigungen. Geräte signalisieren über Licht und sanfte Bewegung, vollständig lokal verarbeitet.",
+      principle2_title:"Warm", principle2_p:"Maßgeschneiderte Chips, umhüllt von weichen Materialien und abgerundetem Widerstand statt kaltem Glas und hartem Klicken.",
+      principle3_title:"Gegenwärtig", principle3_p:"Jeder Prozessor erledigt eine Aufgabe gut und fällt dann in den Mikrowatt-Leerlauf — nichts, was man täglich einstellen muss.",
+      how_eyebrow:"Funktionsweise", how_h2:"Erfassen, verarbeiten, reagieren — vollständig auf dem Gerät.", how_p:"Kein Umweg über die Cloud. Der soft-core liest seine Umgebung und reagiert lokal in unter 15 Millisekunden.",
+      step1_title:"Umgebungssensoren", step1_p:"Licht, Ton, Bewegung und Nähe werden kontinuierlich mit Mikrowatt-Verbrauch erfasst.",
+      step2_title:"Soft-Core-Chip", step2_p:"Ein dedizierter, stromsparender Prozessor deutet Muster direkt auf dem Gerät — nichts verlässt den Raum.",
+      step3_title:"Ambiente Ausgabe", step3_p:"Licht ändert sich, Klang wird sanfter, oder es passiert gar nichts — meist die richtige Reaktion.",
+      products_eyebrow:"Produkte", products_h2:"Eine kleine, bewusste Auswahl.", products_p:"Wir bringen lieber drei Geräte gut heraus als zehn mit viel Lärm. Jedes mit eigenem Soft-Core-Chip.",
+      product1_tag:"Umgebungslicht · Rev 2", product1_h3:"Aura", product1_p:"Eine Schreibtischlampe mit Lichtsensor und Soft-Core-Chip, die dem Tageslicht statt einem Timer folgt.", product1_price:"Ab 129 $",
+      product2_tag:"Fokus-Begleiter · Rev 1", product2_h3:"Glow", product2_p:"Ein Biofeedback-Licht mit integriertem Atemsensor, das seinen Puls in Echtzeit mit deinem synchronisiert.", product2_price:"Ab 89 $",
+      product3_tag:"Klangobjekt · Rev 3", product3_h3:"Hum", product3_p:"Ein Lautsprecher mit einem einzigen Regler und von Hand abgestimmtem DSP — keine App, kein Equalizer zu pflegen.", product3_price:"Ab 159 $",
+      viz_hint:"Klicken für 3D-Ansicht",
+      viz_modal_title:"$ visualisieren --produkt",
+      viz_drag_hint:"Ziehen zum Drehen · dreht sich im Leerlauf automatisch",
+      viz_reset_btn:"Ansicht zurücksetzen",
+      viz_dim_w:"Breite", viz_dim_h:"Höhe", viz_dim_d:"Tiefe",
+      quote_text:'„Die beste Oberfläche ist die, deren Nutzung man nicht mehr bemerkt."', quote_cite:"— Mia Fontaine, Mitgründerin von Soft Tech",
+      queries_eyebrow:"Fragen", queries_h2:"Fragen, klar beantwortet.", queries_p:"Was uns am häufigsten gefragt wird — plus eine direkte Möglichkeit, wenn deine Frage fehlt.",
+      faq1_q:"Verlassen Daten das Gerät?", faq1_a:"Nein. Erfassung und Auswertung laufen beide auf dem Soft-Core-Chip im Gerät selbst. Es wird nichts an einen Server gesendet, außer du aktivierst die optionale Begleit-App.",
+      faq2_q:"Was passiert bei Stromausfall?", faq2_a:"Geräte nehmen ihren letzten Zustand automatisch wieder auf. Es gibt keine Cloud-Synchronisierung abzuwarten, das Gerät ist also sofort nach Rückkehr des Stroms nutzbar.",
+      faq3_q:"Kann ich die Firmware selbst hosten oder prüfen?", faq3_a:"Ja. Firmware-Quellcode und die On-Device-Inferenz-Pipeline sind auf unserem Entwicklerportal veröffentlicht, für alle, die sie prüfen oder erweitern möchten.",
+      faq4_q:"Wie lang ist die Sensor-Reaktionszeit?", faq4_a:"Typischerweise 12 Millisekunden vom Sensorwert bis zur Ausgabe, da die Auswertung lokal auf dem Soft-Core-Chip ohne Netzwerk-Umweg erfolgt.",
+      faq5_q:"Brauche ich eine App für ein Soft-Tech-Gerät?", faq5_a:"Für den Betrieb ist keine App nötig. Die Begleit-App dient nur der optionalen Konfiguration und wird im Alltag nie benötigt.",
+      ask_title:"$ frage-senden", ask_subtitle:"Frag etwas, das oben nicht steht — wir lesen jede Zeile.", ask_placeholder:"Deine Frage eingeben…", ask_button:"Senden",
+      cta_h2:"Bring als Erste Ruhe in deinen Raum.", cta_p:"Tritt der Warteliste bei — frühe Mitglieder erhalten Vorabzugang und Gründerpreise.", cta_placeholder:"du@beispiel.de", cta_button:"Benachrichtige mich",
+      footer_copy:"© 2026 soft-tech · gebaut auf soft-core v2"
+    },
+    hi: {
+      nav_home:"होम", nav_philosophy:"दर्शन", nav_how:"कैसे काम करता है", nav_products:"उत्पाद", nav_products_group:"उत्पादों के बारे में", nav_queries:"प्रश्न", nav_join:"जुड़ें",
+      ctrl_theme:"थीम", ctrl_lang:"भाषा", theme_light:"लाइट", theme_dark:"डार्क",
+      status_chip:"सिस्टम शांत", btn_join:"वेटलिस्ट में शामिल हों", btn_how:"देखें यह कैसे काम करता है",
+      hero_eyebrow:"शांत तकनीक, अब हकीकत में",
+      hero_h1:'ऐसी तकनीक जो आपके साथ <em>सांस</em> लेती है, आप पर हावी नहीं होती।',
+      hero_p:'Soft Tech ऐसे एम्बिएंट सेंसर और कम-ऊर्जा वाला एज प्रोसेसर — "soft-core" — बनाती है, जो कमरे को समझकर स्क्रीन और अलर्ट के बजाय रोशनी, गर्माहट और ध्वनि से प्रतिक्रिया देता है।',
+      meta1_label:"सेंसर रिस्पॉन्स", meta2_label:"एक चार्ज में बैटरी", meta3_label:"ज़रूरी ऐप्स",
+      orb_label:"soft-core · निष्क्रिय",
+      philosophy_eyebrow:"दर्शन", philosophy_h2:"असली हार्डवेयर, तीन शांत नियम।", philosophy_p:"हम जो भी सेंसर, चिप और सामग्री चुनते हैं, उसे इन्हीं तीन विचारों पर परखा जाता है।",
+      principle1_title:"शांत", principle1_p:"कोई पुश नोटिफिकेशन नहीं। डिवाइस रोशनी और हल्की गति के ज़रिए संकेत देते हैं, जो पूरी तरह डिवाइस पर ही प्रोसेस होता है।",
+      principle2_title:"गर्मजोशी भरा", principle2_p:"कस्टम सिलिकॉन, जो ठंडे कांच और सख्त क्लिक की बजाय मुलायम सामग्री और गोल किनारों में लिपटा है।",
+      principle3_title:"मौजूद", principle3_p:"हर प्रोसेसर एक काम अच्छे से करता है, फिर माइक्रोवाट पर निष्क्रिय हो जाता है — रोज़ कुछ भी सेट करने की ज़रूरत नहीं।",
+      how_eyebrow:"कैसे काम करता है", how_h2:"महसूस करें, प्रोसेस करें, प्रतिक्रिया दें — पूरी तरह डिवाइस पर।", how_p:"कोई क्लाउड राउंड-ट्रिप नहीं। soft-core अपने परिवेश को पढ़ता है और 15 मिलीसेकंड से कम में स्थानीय रूप से प्रतिक्रिया देता है।",
+      step1_title:"एम्बिएंट सेंसर", step1_p:"रोशनी, ध्वनि, गति और निकटता को लगातार माइक्रोवाट बिजली खपत पर मापा जाता है।",
+      step2_title:"Soft-core चिप", step2_p:"एक समर्पित कम-ऊर्जा प्रोसेसर पैटर्न को डिवाइस पर ही समझता है — कुछ भी कमरे से बाहर नहीं जाता।",
+      step3_title:"एम्बिएंट आउटपुट", step3_p:"रोशनी बदलती है, ध्वनि नरम होती है, या कुछ नहीं होता — ज़्यादातर सही प्रतिक्रिया।",
+      products_eyebrow:"उत्पाद", products_h2:"एक छोटी, सोची-समझी रेंज।", products_p:"हम दस डिवाइस शोर से लाने के बजाय तीन को अच्छे से लाना पसंद करते हैं। हर एक का अपना soft-core चिप है।",
+      product1_tag:"एम्बिएंट लाइट · rev 2", product1_h3:"Aura", product1_p:"एक डेस्क लैंप जिसमें लाइट सेंसर और soft-core चिप है, जो टाइमर के बजाय दिन की रोशनी को ट्रैक करता है।", product1_price:"$129 से",
+      product2_tag:"फोकस साथी · rev 1", product2_h3:"Glow", product2_p:"एक बायोफीडबैक लाइट जिसमें सांस सेंसर है, जो वास्तविक समय में आपकी धड़कन से तालमेल बिठाता है।", product2_price:"$89 से",
+      product3_tag:"साउंड ऑब्जेक्ट · rev 3", product3_h3:"Hum", product3_p:"एक स्पीकर जिसमें एक ही डायल और हाथ से ट्यून किया DSP है — न कोई ऐप, न मैनेज करने के लिए इक्वलाइज़र।", product3_price:"$159 से",
+      viz_hint:"3D में देखने के लिए क्लिक करें",
+      viz_modal_title:"$ विज़ुअलाइज़ --उत्पाद",
+      viz_drag_hint:"घुमाने के लिए खींचें · निष्क्रिय होने पर अपने आप घूमता है",
+      viz_reset_btn:"व्यू रीसेट करें",
+      viz_dim_w:"चौड़ाई", viz_dim_h:"ऊँचाई", viz_dim_d:"गहराई",
+      quote_text:'"सबसे अच्छा इंटरफ़ेस वही है जिसका इस्तेमाल करना आप भूल जाएं।"', quote_cite:"— मिया फॉन्टेन, Soft Tech सह-संस्थापक",
+      queries_eyebrow:"प्रश्न", queries_h2:"प्रश्न, सीधे जवाब के साथ।", queries_p:"वे बातें जो लोग सबसे ज़्यादा पूछते हैं — और अगर आपका सवाल यहां नहीं है तो सीधा संपर्क करें।",
+      faq1_q:"क्या कोई डेटा डिवाइस से बाहर जाता है?", faq1_a:"नहीं। सेंसिंग और इनफरेंस दोनों डिवाइस के अंदर soft-core चिप पर चलते हैं। जब तक आप वैकल्पिक कंपैनियन ऐप को सक्षम न करें, कुछ भी सर्वर पर नहीं भेजा जाता।",
+      faq2_q:"बिजली जाने पर क्या होता है?", faq2_a:"डिवाइस अपने आप अपनी आखिरी स्थिति में वापस आ जाते हैं। किसी क्लाउड सिंक का इंतज़ार नहीं करना पड़ता, इसलिए बिजली आते ही डिवाइस फिर से इस्तेमाल में आ जाता है।",
+      faq3_q:"क्या मैं फर्मवेयर को खुद होस्ट या जांच सकता हूं?", faq3_a:"हां। फर्मवेयर सोर्स और ऑन-डिवाइस इनफरेंस पाइपलाइन हमारे डेवलपर पोर्टल पर प्रकाशित हैं, ताकि कोई भी इसे जांच या विस्तार कर सके।",
+      faq4_q:"सेंसर रिस्पॉन्स टाइम कितना है?", faq4_a:"आमतौर पर सेंसर रीड से आउटपुट तक 12 मिलीसेकंड, क्योंकि इनफरेंस बिना किसी नेटवर्क राउंड-ट्रिप के सीधे soft-core चिप पर होता है।",
+      faq5_q:"क्या Soft Tech डिवाइस इस्तेमाल करने के लिए ऐप ज़रूरी है?", faq5_a:"किसी भी डिवाइस को चलाने के लिए ऐप ज़रूरी नहीं है। कंपैनियन ऐप केवल वैकल्पिक सेटअप के लिए है और रोज़मर्रा में कभी ज़रूरी नहीं होता।",
+      ask_title:"$ प्रश्न-भेजें", ask_subtitle:"ऊपर न दिखा कोई सवाल पूछें — हम हर लाइन पढ़ते हैं।", ask_placeholder:"अपना सवाल लिखें…", ask_button:"भेजें",
+      cta_h2:"अपने स्थान में शांति लाने वाले सबसे पहले बनें।", cta_p:"वेटलिस्ट में शामिल हों — शुरुआती सदस्यों को पहले एक्सेस और फाउंडिंग प्राइसिंग मिलती है।", cta_placeholder:"you@example.com", cta_button:"मुझे सूचित करें",
+      footer_copy:"© 2026 soft-tech · soft-core v2 पर निर्मित"
+    },
+    sw: {
+      nav_home:"Nyumbani", nav_philosophy:"Falsafa", nav_how:"Jinsi inavyofanya kazi", nav_products:"Bidhaa", nav_products_group:"Kuhusu Bidhaa", nav_queries:"Maswali", nav_join:"Jiunge",
+      ctrl_theme:"Mandhari", ctrl_lang:"Lugha", theme_light:"Nuru", theme_dark:"Giza",
+      status_chip:"mfumo ni shwari", btn_join:"Jiunge na orodha", btn_how:"Ona jinsi inavyofanya kazi",
+      hero_eyebrow:"Teknolojia tulivu, kwa uhalisia",
+      hero_h1:'Teknolojia inayo<em>pumua</em> pamoja nawe, si juu yako.',
+      hero_p:'Soft Tech hutengeneza vitambuzi vya mazingira na kichakataji cha nishati ndogo — "soft-core" — vinavyosoma chumba na kujibu kwa mwanga, joto, na sauti badala ya skrini na tahadhari.',
+      meta1_label:"mwitikio wa kitambuzi", meta2_label:"betri kwa chaji moja", meta3_label:"programu zinazohitajika",
+      orb_label:"soft-core · imetulia",
+      philosophy_eyebrow:"Falsafa", philosophy_h2:"Vifaa halisi, kanuni tatu tulivu.", philosophy_p:"Kila kitambuzi, chip, na malighafi tunayochagua hupimwa dhidi ya mawazo haya matatu.",
+      principle1_title:"Kimya", principle1_p:"Hakuna arifa za kusukuma. Vifaa huashiria kwa mwanga na mwendo mpole, vinavyochakatwa vyote ndani ya kifaa.",
+      principle2_title:"Joto", principle2_p:"Silicon maalum, iliyofungwa kwa malighafi laini na upinzani wa mviringo badala ya kioo baridi na mibofyo migumu.",
+      principle3_title:"Hupo", principle3_p:"Kila kichakataji hufanya kazi moja vizuri, kisha hupumzika kwa microwatt — hakuna cha kusanidi kila siku.",
+      how_eyebrow:"Jinsi inavyofanya kazi", how_h2:"Sikia, chakata, itikia — yote ndani ya kifaa.", how_p:"Hakuna kwenda-na-kurudi kwenye wingu. Soft-core husoma mazingira yake na kuitikia papo hapo, chini ya milisekunde 15.",
+      step1_title:"Vitambuzi vya mazingira", step1_p:"Mwanga, sauti, mwendo, na ukaribu hupimwa mfululizo kwa matumizi madogo ya nishati.",
+      step2_title:"Chip ya soft-core", step2_p:"Kichakataji maalum cha nishati ndogo hutafsiri ruwaza ndani ya kifaa — hakuna kinachotoka chumbani.",
+      step3_title:"Matokeo ya mazingira", step3_p:"Mwanga hubadilika, sauti hulainika, au hakuna kinachotokea — mwitikio sahihi, mara nyingi.",
+      products_eyebrow:"Bidhaa", products_h2:"Mkusanyiko mdogo, wa makusudi.", products_p:"Tungependelea kutoa vifaa vitatu vizuri kuliko kumi kwa kelele. Kila kimoja kina chip yake ya soft-core.",
+      product1_tag:"Mwanga wa mazingira · rev 2", product1_h3:"Aura", product1_p:"Taa ya mezani yenye kitambuzi cha mwanga na chip ya soft-core inayofuata mwanga wa mchana badala ya kipima muda.", product1_price:"Kuanzia $129",
+      product2_tag:"Msaidizi wa umakini · rev 1", product2_h3:"Glow", product2_p:"Taa ya biofeedback yenye kitambuzi cha pumzi kinachooanisha mapigo yake na yako kwa wakati halisi.", product2_price:"Kuanzia $89",
+      product3_tag:"Kitu cha sauti · rev 3", product3_h3:"Hum", product3_p:"Spika yenye kitufe kimoja na DSP iliyorekebishwa kwa mkono — hakuna programu, hakuna kisawazishi cha kudhibiti.", product3_price:"Kuanzia $159",
+      viz_hint:"Bofya kuona kwa 3D",
+      viz_modal_title:"$ onyesha --bidhaa",
+      viz_drag_hint:"Buruta kuzungusha · huzunguka yenyewe ikiwa imetulia",
+      viz_reset_btn:"Rudisha mwonekano",
+      viz_dim_w:"Upana", viz_dim_h:"Urefu", viz_dim_d:"Kina",
+      quote_text:'"Kiolesura bora ni kile unachoacha kukigundua unakitumia."', quote_cite:"— Mia Fontaine, mwanzilishi mwenza wa Soft Tech",
+      queries_eyebrow:"Maswali", queries_h2:"Maswali, yaliyojibiwa kwa uwazi.", queries_p:"Mambo tunayoulizwa mara nyingi zaidi, pamoja na njia ya moja kwa moja kama swali lako halipo hapa.",
+      faq1_q:"Je, kuna data inayotoka kwenye kifaa?", faq1_a:"Hapana. Kutambua na kuhitimisha vyote hufanyika kwenye chip ya soft-core ndani ya kifaa chenyewe. Hakuna kinachotumwa kwa seva isipokuwa uwashe programu ya hiari ya usaidizi.",
+      faq2_q:"Nini hutokea nishati ikikatika?", faq2_a:"Vifaa hurejea hali yake ya mwisho kiotomatiki. Hakuna usawazishaji wa wingu wa kusubiri, hivyo kifaa hutumika tena mara moja umeme unaporudi.",
+      faq3_q:"Je, naweza kupangisha au kukagua firmware mwenyewe?", faq3_a:"Ndiyo. Msimbo wa firmware na mfumo wa kuhitimisha ndani ya kifaa umechapishwa kwenye tovuti yetu ya wasanidi kwa yeyote anayetaka kuukagua au kuupanua.",
+      faq4_q:"Muda wa mwitikio wa kitambuzi ni upi?", faq4_a:"Kwa kawaida milisekunde 12 kutoka usomaji wa kitambuzi hadi matokeo, kwa kuwa uhitimisho hufanyika ndani ya kifaa bila kwenda-na-kurudi kwenye mtandao.",
+      faq5_q:"Je, nahitaji programu kutumia kifaa cha Soft Tech?", faq5_a:"Hakuna programu inayohitajika kwa kifaa chochote kufanya kazi. Programu ya usaidizi ipo tu kwa usanidi wa hiari na haihitajiki kila siku.",
+      ask_title:"$ tuma-swali", ask_subtitle:"Uliza jambo lisilo hapo juu — tunasoma kila mstari.", ask_placeholder:"Andika swali lako…", ask_button:"Tuma",
+      cta_h2:"Kuwa wa kwanza kuleta utulivu nafasini mwako.", cta_p:"Jiunge na orodha ya kusubiri — wanachama wa mapema hupata ufikiaji wa mapema na bei ya waanzilishi.", cta_placeholder:"wewe@mfano.com", cta_button:"Nijulishe",
+      footer_copy:"© 2026 soft-tech · imejengwa juu ya soft-core v2"
+    }
+  };
+
+  let currentLang = 'en';
+  function applyLang(lang){
+    currentLang = lang;
+    const dict = translations[lang] || translations.en;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      const val = dict[key] !== undefined ? dict[key] : translations.en[key];
+      if(val !== undefined) el.textContent = val;
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const key = el.getAttribute('data-i18n-html');
+      const val = dict[key] !== undefined ? dict[key] : translations.en[key];
+      if(val !== undefined) el.innerHTML = val;
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      const val = dict[key] !== undefined ? dict[key] : translations.en[key];
+      if(val !== undefined) el.setAttribute('placeholder', val);
+    });
+    document.documentElement.lang = lang;
+    if(vizOverlay.classList.contains('open')) fillVizInfo(vizCurrent);
+  }
+  document.getElementById('langSelect').addEventListener('change', (e) => applyLang(e.target.value));
+</script>
+
+</body>
+</html>
